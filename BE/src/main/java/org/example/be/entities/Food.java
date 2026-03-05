@@ -1,5 +1,6 @@
 package org.example.be.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.example.be.enums.Type;
 
@@ -14,6 +15,7 @@ public class Food {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
+    @JsonProperty("calories")
     private double kcal;
     @Column(nullable = false)
     private double protein;
