@@ -2,9 +2,12 @@ package org.example.be.runner;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.be.entities.Admin;
 import org.example.be.entities.Food;
+import org.example.be.repositories.AdminRepo;
 import org.example.be.repositories.FoodRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -12,14 +15,23 @@ import org.springframework.stereotype.Component;
 import java.io.InputStream;
 import java.util.List;
 
-//To populate my DB with all foods
+
 @Component
-public class FoodRunner implements CommandLineRunner {
+public class Runner implements CommandLineRunner {
     @Autowired
     private FoodRepo fr;
+    @Autowired
+    private AdminRepo ar;
+    @Value("${admin.username}")
+    private String adminUsername;
+    @Value("${admin.password}")
+    private String adminPassword;
+    @Value("${admin.email}")
+    private String adminEmail;
 
     @Override
     public void run(String... args) throws Exception {
+        //To populate my DB with all foods
         ObjectMapper mapper = new ObjectMapper(); //transform json in java obj
         ClassPathResource res = new ClassPathResource("Common_Foods.json"); //loads files in resources
         InputStream inputStream = res.getInputStream(); //data's reading-flow
@@ -29,7 +41,16 @@ public class FoodRunner implements CommandLineRunner {
             fr.saveAll(foods);//to save only once
             System.out.println("Foods imported!");
         }
+//to create an admin by default
+        if (ar.count() == 0) {
+            Admin admin = new Admin();
+            admin.setUsername(adminUsername);
+            admin.setEmail(adminEmail);
+            admin.setPassword(adminPassword);
+            ar.save(admin);
 
+            System.out.println("Admin created!");
+        }
 
     }
 

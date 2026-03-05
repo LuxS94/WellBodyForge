@@ -24,6 +24,7 @@ public class MyMeal {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JoinColumn
     private List<MealFood> mealFoods = new ArrayList<>();
     private double tot_kcal;
     private double tot_protein;

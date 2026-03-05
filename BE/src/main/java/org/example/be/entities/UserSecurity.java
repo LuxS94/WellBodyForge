@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+//Class to manage users's role
 public class UserSecurity implements UserDetails {
 
     private String id;
