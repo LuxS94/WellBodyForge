@@ -4,10 +4,15 @@ import org.example.be.dto.UserDTO;
 import org.example.be.entities.Target;
 import org.example.be.entities.User;
 import org.example.be.exceptions.AlreadyExists;
+import org.example.be.exceptions.NotFoundException;
 import org.example.be.repositories.AdminRepo;
 import org.example.be.repositories.TargetRepo;
 import org.example.be.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -66,6 +71,18 @@ public class UserService {
         Target t = this.tr.findByUser(user).get();
         this.tr.save(t);
         return user;
+    }
+
+    public User findById(String id) {
+        return this.ur.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
+    }
+
+    public Page<User> findAllUsers(int page, int size, String orderBy, String sortCriteria) {
+        if (size > 100 || size < 0) size = 10;
+        if (page < 0) page = 0;
+        Pageable pageable = PageRequest.of(page, size,
+                sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
+        return this.ur.findAll(pageable);
     }
 
     public void delete(User user) {
