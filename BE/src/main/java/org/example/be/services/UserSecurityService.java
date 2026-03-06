@@ -47,5 +47,16 @@ public class UserSecurityService implements UserDetailsService {
         }
         throw new NotFoundException("");
     }
+
+    public UserSecurity findUserSecurityByUsername(String username) {
+        if (ar.findByUsername(username).isPresent()) {
+            Admin ad = ar.findByUsername(username).get();
+            return new UserSecurity(ad.getId(), ad.getUsername(), ad.getPassword(), Role.ADMIN);
+        } else if (ur.findByUsername(username).isPresent()) {
+            User us = ur.findByUsername(username).get();
+            return new UserSecurity(us.getId(), us.getUsername(), us.getPassword(), Role.USER);
+        }
+        throw new NotFoundException("");
+    }
 }
 
