@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 //Class to manage users's role
 public class UserSecurity implements UserDetails {
@@ -18,8 +17,8 @@ public class UserSecurity implements UserDetails {
     private String password;
     private Role role;
 
-    public UserSecurity(String username, String password, Role role) {
-        this.id = UUID.randomUUID().toString();
+    public UserSecurity(String id, String username, String password, Role role) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
@@ -30,9 +29,13 @@ public class UserSecurity implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role));
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public @Nullable String getPassword() {
-        return "";
+        return password;
     }
 
     @Override

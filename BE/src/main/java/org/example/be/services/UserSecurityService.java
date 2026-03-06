@@ -29,10 +29,21 @@ public class UserSecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (ar.findByUsername(username).isPresent()) {
             Admin ad = ar.findByUsername(username).get();
-            return new UserSecurity(ad.getUsername(), ad.getPassword(), Role.ADMIN);
+            return new UserSecurity(ad.getId(), ad.getUsername(), ad.getPassword(), Role.ADMIN);
         } else if (ur.findByUsername(username).isPresent()) {
             User us = ur.findByUsername(username).get();
-            return new UserSecurity(us.getUsername(), us.getPassword(), Role.USER);
+            return new UserSecurity(us.getId(), us.getUsername(), us.getPassword(), Role.USER);
+        }
+        throw new NotFoundException("");
+    }
+
+    public UserSecurity findUserSecurityById(String id) {
+        if (this.ar.findById(id).isPresent()) {
+            Admin ad = ar.findById(id).get();
+            return new UserSecurity(ad.getId(), ad.getUsername(), ad.getPassword(), Role.ADMIN);
+        } else if (this.ur.findById(id).isPresent()) {
+            User us = ur.findById(id).get();
+            return new UserSecurity(us.getId(), us.getUsername(), us.getPassword(), Role.USER);
         }
         throw new NotFoundException("");
     }

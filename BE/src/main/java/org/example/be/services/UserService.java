@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,12 +21,14 @@ public class UserService {
     private final UserRepo ur;
     private final TargetRepo tr;
     private final AdminRepo ar;
+    private final PasswordEncoder pw;
 
     @Autowired
-    public UserService(UserRepo ur, TargetRepo tr, AdminRepo ar) {
+    public UserService(UserRepo ur, TargetRepo tr, AdminRepo ar, PasswordEncoder pw) {
         this.ur = ur;
         this.tr = tr;
         this.ar = ar;
+        this.pw = pw;
     }
 
     //email and username are unique for admin and users
