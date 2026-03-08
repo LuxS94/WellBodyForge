@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record MyMealDTO(@NotBlank(message = "User-id field cannot be empty!") String userid,
-                        @NotBlank(message = "Description field cannot be empty!") String description,
+public record MyMealDTO(@NotBlank(message = "Description field cannot be empty!") String description,
                         @NotNull(message = "Date field cannot be empty!") LocalDate date) {
 }

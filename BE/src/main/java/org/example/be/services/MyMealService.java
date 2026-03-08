@@ -26,9 +26,8 @@ public class MyMealService {
         this.ur = ur;
     }
 
-    public MyMeal create(MyMealDTO body) {
-        User f = this.ur.findById(body.userid()).orElseThrow(() -> new NotFoundException("User not found"));
-        MyMeal mm = new MyMeal(f, body.description(), body.date());
+    public MyMeal create(User user, MyMealDTO body) {
+        MyMeal mm = new MyMeal(user, body.description(), body.date());
         return this.mmr.save(mm);
     }
 
@@ -38,10 +37,23 @@ public class MyMealService {
         if (page < 0) page = 0;
         Pageable pageable = PageRequest.of(page, size,
                 sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
-        return this.mmr.findAll(pageable);
+        return this.mmr.findByUser(user, pageable);
     }
 
-    public Page<MyMeal> findByDate(LocalDate data, int page, int size, String orderBy, String sortCriteria) {
+    public Page<MyMeal> findMyByDate(User user, LocalDate data, int page, int size, String orderBy, String sortCriteria) {
+        if (size > 100 || size < 0) size = 10;
+        if (page < 0) page = 0;
+        Pageable pageable = PageRequest.of(page, size,
+                sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
+        Page<MyMeal> result = mmr.findByDateAndUser(user, data, pageable);
+        if (result.hasContent()) {
+            return result;
+        } else {
+            throw new NotFoundException("No meals found");
+        }
+    }
+
+    public Page<MyMeal> findByDate(User user, LocalDate data, int page, int size, String orderBy, String sortCriteria) {
         if (size > 100 || size < 0) size = 10;
         if (page < 0) page = 0;
         Pageable pageable = PageRequest.of(page, size,
@@ -63,16 +75,29 @@ public class MyMealService {
         return this.mmr.findAll(pageable);
     }
 
-    public MyMeal update(String id, MyMealDTO body) {
-        MyMeal f = this.mmr.findById(id).orElseThrow(() -> new NotFoundException("Meal not found"));
-        f.setDate(body.date());
+    public MyMeal update(String id, User user, MyMealDTO body) {
+        MyMeal f = this.mmr.findByIdAndUser(id, user).orElseThrow(() -> new NotFoundException("Meal not found"));
         f.setDescription(body.description());
         f.setDate(body.date());
         return this.mmr.save(f);
     }
 
+    //admin
     public void deleteMeal(String id) {
         MyMeal m = this.mmr.findById(id).orElseThrow(() -> new NotFoundException("Meal not found"));
+        this.mmr.delete(m);
+    }
+
+    public MyMeal updateAd(String id, MyMealDTO body) {
+        MyMeal f = this.mmr.findById(id).orElseThrow(() -> new NotFoundException("Meal not found"));
+        f.setDescription(body.description());
+        f.setDate(body.date());
+        return this.mmr.save(f);
+    }
+
+    //user
+    public void deleteMyMeal(User user, String id) {
+        MyMeal m = this.mmr.findByIdAndUser(id, user).orElseThrow(() -> new NotFoundException("Meal not found"));
         this.mmr.delete(m);
     }
 

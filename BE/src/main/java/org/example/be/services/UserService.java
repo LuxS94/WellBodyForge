@@ -39,7 +39,7 @@ public class UserService {
         if (this.ur.findByEmail(body.email()).isPresent() || this.ar.findByEmail(body.email()).isPresent()) {
             throw new AlreadyExists("Email already in use.Please choose another one");
         }
-        User nUser = new User(body.username(), body.email(), body.password(), body.height(), body.weight(), body.age(), body.sex(), body.lifestyle(), body.plan());
+        User nUser = new User(body.username(), body.email(), pw.encode(body.password()), body.height(), body.weight(), body.age(), body.sex(), body.lifestyle(), body.plan());
         this.ur.save(nUser);
         Target nTarget = new Target(nUser);
         this.tr.save(nTarget);
@@ -47,7 +47,7 @@ public class UserService {
     }
 
     public User update(User user, UserDTO body) {
-        if (body.username() != user.getUsername()) {
+        if (!body.username().equals(user.getUsername())) {
             if (
                     this.ur.findByUsername(body.username()).isPresent() || this.ar.findByUsername(body.username()).isPresent()) {
                 throw new AlreadyExists("Username already in use.Please choose another one");
@@ -55,7 +55,7 @@ public class UserService {
         }
         ;
         user.setUsername(body.username());
-        if (body.email() != user.getEmail()) {
+        if (!body.email().equals(user.getEmail())) {
             if (
                     this.ur.findByEmail(body.email()).isPresent() || this.ar.findByEmail(body.email()).isPresent()) {
                 throw new AlreadyExists("Email already in use.Please choose another one");
@@ -63,7 +63,7 @@ public class UserService {
         }
         ;
         user.setEmail(body.email());
-        user.setPassword(body.password());
+        user.setPassword(pw.encode(body.password()));
         user.setHeight(body.height());
         user.setWeight(body.weight());
         user.setAge(body.age());
@@ -74,6 +74,36 @@ public class UserService {
         Target t = this.tr.findByUser(user).get();
         this.tr.save(t);
         return user;
+    }
+
+    public User adUpdate(String id, UserDTO body) {
+        User f = this.ur.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
+        if (!body.username().equals(f.getUsername())) {
+            if (
+                    this.ur.findByUsername(body.username()).isPresent() || this.ar.findByUsername(body.username()).isPresent()) {
+                throw new AlreadyExists("Username already in use.Please choose another one");
+            }
+        }
+        ;
+        f.setUsername(body.username());
+        if (!body.email().equals(f.getEmail())) {
+            if (this.ur.findByEmail(body.email()).isPresent() || this.ar.findByEmail(body.email()).isPresent()) {
+                throw new AlreadyExists("Email already in use.Please choose another one");
+            }
+        }
+        ;
+        f.setEmail(body.email());
+        f.setPassword(pw.encode(body.password()));
+        f.setHeight(body.height());
+        f.setWeight(body.weight());
+        f.setAge(body.age());
+        f.setSex(body.sex());
+        f.setLifestyle(body.lifestyle());
+        f.setPlan(body.plan());
+        this.ur.save(f);
+        Target t = this.tr.findByUser(f).get();
+        this.tr.save(t);
+        return f;
     }
 
     public User findById(String id) {
@@ -90,5 +120,10 @@ public class UserService {
 
     public void delete(User user) {
         this.ur.delete(user);
+    }
+
+    public void adDelete(String id) {
+        User f = this.ur.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
+        this.ur.delete(f);
     }
 }
