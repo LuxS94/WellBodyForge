@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -22,6 +23,8 @@ public class Runner implements CommandLineRunner {
     private FoodRepo fr;
     @Autowired
     private AdminRepo ar;
+    @Autowired
+    private PasswordEncoder pw;
     @Value("${admin.username}")
     private String adminUsername;
     @Value("${admin.password}")
@@ -46,7 +49,7 @@ public class Runner implements CommandLineRunner {
             Admin admin = new Admin();
             admin.setUsername(adminUsername);
             admin.setEmail(adminEmail);
-            admin.setPassword(adminPassword);
+            admin.setPassword(pw.encode(adminPassword));
             ar.save(admin);
 
             System.out.println("Admin created!");

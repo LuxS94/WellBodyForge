@@ -1,9 +1,12 @@
 package org.example.be.services;
 
 import org.example.be.dto.TargetDTO;
+import org.example.be.dto.TargetUserDTO;
 import org.example.be.entities.Target;
+import org.example.be.entities.User;
 import org.example.be.exceptions.NotFoundException;
 import org.example.be.repositories.TargetRepo;
+import org.example.be.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,12 +17,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class TargetService {
     private final TargetRepo tr;
+    private final UserRepo ur;
 
     @Autowired
-    public TargetService(TargetRepo tr) {
+    public TargetService(TargetRepo tr, UserRepo ur) {
         this.tr = tr;
+        this.ur = ur;
     }
 
+    //admin
     public Target findById(String id) {
         return this.tr.findById(id).orElseThrow(() -> new NotFoundException("Target not found"));
     }
@@ -32,7 +38,6 @@ public class TargetService {
         return this.tr.findAll(pageable);
     }
 
-    //only admin
     public Target update(String id, TargetDTO body) {
         Target f = this.tr.findById(id).orElseThrow(() -> new NotFoundException("Target not found"));
         if (body.kcal() != null) {
@@ -47,7 +52,38 @@ public class TargetService {
         if (body.fat() != null) {
             f.setFat(body.fat());
         }
-        
+
+        return this.tr.save(f);
+    }
+
+    public Target updateUser(String targetid, TargetUserDTO body) {
+        User f = this.ur.findById(body.userid()).orElseThrow(() -> new NotFoundException("User not found"));
+        Target t = this.tr.findById(targetid).orElseThrow(() -> new NotFoundException("Target not found"));
+        t.setUser(f);
+        return this.tr.save(t);
+
+    }
+
+    //user
+    public Target showMyTarget(User user) {
+        Target f = this.tr.findByUser(user).orElseThrow(() -> new NotFoundException("Target not found"));
+        return f;
+    }
+
+    public Target updateMyTarget(User user, TargetDTO body) {
+        Target f = this.tr.findByUser(user).orElseThrow(() -> new NotFoundException("Target not found"));
+        if (body.kcal() != null) {
+            f.setKcal(body.kcal());
+        }
+        if (body.protein() != null) {
+            f.setProtein(body.protein());
+        }
+        if (body.carbs() != null) {
+            f.setCarbs(body.carbs());
+        }
+        if (body.fat() != null) {
+            f.setFat(body.fat());
+        }
         return this.tr.save(f);
     }
 }
