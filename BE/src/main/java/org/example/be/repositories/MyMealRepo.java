@@ -14,9 +14,9 @@ import java.util.Optional;
 public interface MyMealRepo extends JpaRepository<MyMeal, String> {
     Page<MyMeal> findByDate(LocalDate date, Pageable pageable);
 
-    Page<MyMeal> findByUser(User user, Pageable pageable);
+    Page<MyMeal> findByUserId(String id, Pageable pageable);
 
-    Page<MyMeal> findByDateAndUser(User user, LocalDate date, Pageable pageable);
+    Page<MyMeal> findByDateAndUserId(String id, LocalDate date, Pageable pageable);
 
     Optional<MyMeal> findByIdAndUser(String id, User user);
 }

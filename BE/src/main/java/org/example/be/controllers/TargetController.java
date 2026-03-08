@@ -3,7 +3,7 @@ package org.example.be.controllers;
 import org.example.be.dto.TargetDTO;
 import org.example.be.dto.TargetUserDTO;
 import org.example.be.entities.Target;
-import org.example.be.entities.User;
+import org.example.be.entities.UserSecurity;
 import org.example.be.services.TargetService;
 import org.example.be.services.UserService;
 import org.springframework.data.domain.Page;
@@ -47,12 +47,12 @@ public class TargetController {
     }//http:/localhost:3001/target/updateUser/{id}
 
     @GetMapping("/myTarget")
-    public Target showMyTarget(@AuthenticationPrincipal User currentUser) {
+    public Target showMyTarget(@AuthenticationPrincipal UserSecurity currentUser) {
         return this.ts.showMyTarget(currentUser);
     }//http:/localhost:3001/target/myTarget
 
     @PutMapping("/updateMyTarget")
-    public Target updateMyTarget(@AuthenticationPrincipal User currentUser, @RequestBody TargetDTO body) {
+    public Target updateMyTarget(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody TargetDTO body) {
         return this.ts.updateMyTarget(currentUser, body);
     }//http:/localhost:3001/target/updateMyTarget
 }

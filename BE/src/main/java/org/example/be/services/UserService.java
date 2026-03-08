@@ -3,6 +3,7 @@ package org.example.be.services;
 import org.example.be.dto.UserDTO;
 import org.example.be.entities.Target;
 import org.example.be.entities.User;
+import org.example.be.entities.UserSecurity;
 import org.example.be.exceptions.AlreadyExists;
 import org.example.be.exceptions.NotFoundException;
 import org.example.be.repositories.AdminRepo;
@@ -46,7 +47,8 @@ public class UserService {
         return nUser;
     }
 
-    public User update(User user, UserDTO body) {
+    public User update(UserSecurity u, UserDTO body) {
+        User user = findById(u.getId());
         if (!body.username().equals(user.getUsername())) {
             if (
                     this.ur.findByUsername(body.username()).isPresent() || this.ar.findByUsername(body.username()).isPresent()) {
@@ -118,7 +120,8 @@ public class UserService {
         return this.ur.findAll(pageable);
     }
 
-    public void delete(User user) {
+    public void delete(UserSecurity u) {
+        User user = this.ur.findById(u.getId()).orElseThrow(() -> new NotFoundException("User not found"));
         this.ur.delete(user);
     }
 

@@ -4,6 +4,7 @@ import org.example.be.dto.TargetDTO;
 import org.example.be.dto.TargetUserDTO;
 import org.example.be.entities.Target;
 import org.example.be.entities.User;
+import org.example.be.entities.UserSecurity;
 import org.example.be.exceptions.NotFoundException;
 import org.example.be.repositories.TargetRepo;
 import org.example.be.repositories.UserRepo;
@@ -65,13 +66,15 @@ public class TargetService {
     }
 
     //user
-    public Target showMyTarget(User user) {
-        Target f = this.tr.findByUser(user).orElseThrow(() -> new NotFoundException("Target not found"));
+    public Target showMyTarget(UserSecurity user) {
+        User u = this.ur.findById(user.getId()).orElseThrow(() -> new NotFoundException("User not found"));
+        Target f = this.tr.findByUser(u).orElseThrow(() -> new NotFoundException("Target not found"));
         return f;
     }
 
-    public Target updateMyTarget(User user, TargetDTO body) {
-        Target f = this.tr.findByUser(user).orElseThrow(() -> new NotFoundException("Target not found"));
+    public Target updateMyTarget(UserSecurity user, TargetDTO body) {
+        User u = this.ur.findById(user.getId()).orElseThrow(() -> new NotFoundException("User not found"));
+        Target f = this.tr.findByUser(u).orElseThrow(() -> new NotFoundException("Target not found"));
         if (body.kcal() != null) {
             f.setKcal(body.kcal());
         }

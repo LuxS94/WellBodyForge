@@ -2,7 +2,7 @@ package org.example.be.controllers;
 
 import org.example.be.dto.MyMealDTO;
 import org.example.be.entities.MyMeal;
-import org.example.be.entities.User;
+import org.example.be.entities.UserSecurity;
 import org.example.be.services.MyMealService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class MyMealController {
 
     @GetMapping("/my")
     public Page<MyMeal> getMyMeals(
-            @AuthenticationPrincipal User currentUser,
+            @AuthenticationPrincipal UserSecurity currentUser,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "date") String orderBy,
@@ -35,7 +35,7 @@ public class MyMealController {
     }//http://localhost:3001/meals/my
 
     @GetMapping("/MyByDate")
-    public Page<MyMeal> getMyMealsByDate(@AuthenticationPrincipal User currentUser, @RequestParam LocalDate date, @RequestParam(defaultValue = "0") int page,
+    public Page<MyMeal> getMyMealsByDate(@AuthenticationPrincipal UserSecurity currentUser, @RequestParam LocalDate date, @RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size,
                                          @RequestParam(defaultValue = "date") String orderBy,
                                          @RequestParam(defaultValue = "asc") String sortCriteria
@@ -45,12 +45,12 @@ public class MyMealController {
 
     @GetMapping("/ByDate")
     @PreAuthorize("hasRole('ADMIN')")
-    public Page<MyMeal> getMealsByDate(@AuthenticationPrincipal User currentUser, @RequestParam LocalDate date, @RequestParam(defaultValue = "0") int page,
+    public Page<MyMeal> getMealsByDate(@AuthenticationPrincipal UserSecurity currentUser, @RequestParam LocalDate date, @RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "10") int size,
                                        @RequestParam(defaultValue = "date") String orderBy,
                                        @RequestParam(defaultValue = "asc") String sortCriteria
     ) {
-        return this.mms.findByDate(currentUser, date, page, size, orderBy, sortCriteria);
+        return this.mms.findByDate(date, page, size, orderBy, sortCriteria);
     }//http://localhost:3001/meals/ByDate
 
     @GetMapping("/all")
@@ -68,12 +68,12 @@ public class MyMealController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MyMeal createMeal(@AuthenticationPrincipal User currentUser, @RequestBody @Validated MyMealDTO body) {
+    public MyMeal createMeal(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody @Validated MyMealDTO body) {
         return this.mms.create(currentUser, body);
     }//http://localhost:3001/meals
 
     @PutMapping("/{id}/update")
-    public MyMeal updateMyMeal(@AuthenticationPrincipal User currentUser, @RequestBody @Validated MyMealDTO body, @PathVariable String id) {
+    public MyMeal updateMyMeal(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody @Validated MyMealDTO body, @PathVariable String id) {
         return this.mms.update(id, currentUser, body);
     }//http://localhost:3001/meals/{id}/update
 
@@ -93,7 +93,7 @@ public class MyMealController {
 
     @DeleteMapping("/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMyMeal(@AuthenticationPrincipal User currentUser, String id) {
+    public void deleteMyMeal(@AuthenticationPrincipal UserSecurity currentUser, String id) {
         this.mms.deleteMyMeal(currentUser, id);
     }//http://localhost:3001/meals/delete
 

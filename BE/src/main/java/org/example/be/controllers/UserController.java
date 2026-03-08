@@ -2,6 +2,7 @@ package org.example.be.controllers;
 
 import org.example.be.dto.UserDTO;
 import org.example.be.entities.User;
+import org.example.be.entities.UserSecurity;
 import org.example.be.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,14 +23,13 @@ public class UserController {
     }
 
     @GetMapping("/myProfile")
-    public User showMyProfile(@AuthenticationPrincipal User currentUser) {
+    public User showMyProfile(@AuthenticationPrincipal UserSecurity currentUser) {
         return this.us.findById(currentUser.getId());
     }//http://localhost:3001/user/myProfile
 
     @PutMapping("/updateMe")
-    public User updateMyProfile(@AuthenticationPrincipal User currentUser, @RequestBody UserDTO body) {
-        User f = this.us.findById(currentUser.getId());
-        return this.us.update(f, body);
+    public User updateMyProfile(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody UserDTO body) {
+        return this.us.update(currentUser, body);
     }//http://localhost:3001/user/updateMe
 
     @PutMapping("/{id}/update")
@@ -40,7 +40,7 @@ public class UserController {
 
     @DeleteMapping("/deleteMe")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMyProfile(@AuthenticationPrincipal User currentUser) {
+    public void deleteMyProfile(@AuthenticationPrincipal UserSecurity currentUser) {
         this.us.delete(currentUser);
     }//http://localhost:3001/user/deteleMe
 
