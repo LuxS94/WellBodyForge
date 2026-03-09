@@ -14,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-
 @Service
 public class MyMealService {
     private final MyMealRepo mmr;
@@ -42,32 +40,7 @@ public class MyMealService {
                 sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
         return this.mmr.findByUserId(user.getId(), pageable);
     }
-
-    public Page<MyMeal> findMyByDate(UserSecurity user, LocalDate data, int page, int size, String orderBy, String sortCriteria) {
-        if (size > 100 || size < 0) size = 10;
-        if (page < 0) page = 0;
-        Pageable pageable = PageRequest.of(page, size,
-                sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
-        Page<MyMeal> result = mmr.findByDateAndUserId(user.getId(), data, pageable);
-        if (result.hasContent()) {
-            return result;
-        } else {
-            throw new NotFoundException("No meals found");
-        }
-    }
-
-    public Page<MyMeal> findByDate(LocalDate data, int page, int size, String orderBy, String sortCriteria) {
-        if (size > 100 || size < 0) size = 10;
-        if (page < 0) page = 0;
-        Pageable pageable = PageRequest.of(page, size,
-                sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
-        Page<MyMeal> result = mmr.findByDate(data, pageable);
-        if (result.hasContent()) {
-            return result;
-        } else {
-            throw new NotFoundException("No meals found");
-        }
-    }
+    
 
     //admin
     public Page<MyMeal> findAllMeals(int page, int size, String orderBy, String sortCriteria) {
