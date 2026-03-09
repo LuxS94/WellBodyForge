@@ -23,7 +23,7 @@ public class FoodService {
     }
 
     public Food create(FoodDTO body) {
-        if (this.fr.findByName(body.name()).isPresent() && this.fr.findByType(body.type()).isPresent()) {
+        if (this.fr.findByNameAndType(body.name(), body.type()).isPresent()) {
             throw new AlreadyExists("This food is already registered!");
         }
         Food nFood = new Food(body.type(), body.name(), body.kcal(), body.protein(), body.carbs(), body.fat());
@@ -31,10 +31,10 @@ public class FoodService {
         return nFood;
     }
 
-    public Food update(String name, Type type, FoodDTO body) {
-        Food f = this.fr.findByNameAndType(name, type).orElseThrow(() -> new NotFoundException("Food not found"));
-        if (f.getName() != body.name() && f.getType() != body.type()) {
-            if (this.fr.findByName(body.name()).isPresent() && this.fr.findByType(body.type()).isPresent()) {
+    public Food update(String id, FoodDTO body) {
+        Food f = this.fr.findById(id).orElseThrow(() -> new NotFoundException("Food not found"));
+        if (!f.getName().equals(body.name()) && !f.getType().equals(body.type())) {
+            if (this.fr.findByNameAndType(body.name(), body.type()).isPresent()) {
                 throw new AlreadyExists("This food is already registered!");
             }
             ;
@@ -57,12 +57,12 @@ public class FoodService {
         return this.fr.findAll(pageable);
     }
 
-    public Food findByName(String name) {
-        return this.fr.findByName(name).orElseThrow(() -> new NotFoundException("Food not found"));
+    public Food findByNameAndType(String name, Type type) {
+        return this.fr.findByNameAndType(name, type).orElseThrow(() -> new NotFoundException("Food not found"));
     }
 
-    public void delete(String name, Type type) {
-        Food f = this.fr.findByNameAndType(name, type).orElseThrow(() -> new NotFoundException("Food not found"));
+    public void delete(String id) {
+        Food f = this.fr.findById(id).orElseThrow(() -> new NotFoundException("Food not found"));
         this.fr.delete(f);
     }
 
