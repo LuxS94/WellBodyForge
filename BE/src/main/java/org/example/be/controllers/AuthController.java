@@ -40,7 +40,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public LoginResDTO login(@RequestBody LoginDTO body) {
+    public LoginResDTO login(@RequestBody @Validated LoginDTO body) {
 
         return new LoginResDTO(this.as.checkCredentialsAndGenerateToken(body));
     }//http://localhost:3001/auth/login

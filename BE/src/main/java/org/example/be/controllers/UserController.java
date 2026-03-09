@@ -36,7 +36,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public Page<User> showsAllUsers(@RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size,
-                                    @RequestParam(defaultValue = "date") String orderBy,
+                                    @RequestParam(defaultValue = "username") String orderBy,
                                     @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.us.findAllUsers(page, size, orderBy, sortCriteria);
     }//http://localhost:3001/user/all

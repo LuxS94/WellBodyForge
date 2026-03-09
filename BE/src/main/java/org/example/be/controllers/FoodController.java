@@ -7,6 +7,7 @@ import org.example.be.services.FoodService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,13 +34,13 @@ public class FoodController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Food add(@RequestBody FoodDTO body) {
+    public Food add(@RequestBody @Validated FoodDTO body) {
         return this.fs.create(body);
     }//http://localhost:3001/food/add
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Food update(@PathVariable String id, @RequestBody FoodDTO body) {
+    public Food update(@PathVariable String id, @RequestBody @Validated FoodDTO body) {
         return this.fs.update(id, body);
     }//http://localhost:3001/food/{id}
 

@@ -9,6 +9,7 @@ import org.example.be.services.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,19 +31,19 @@ public class TargetController {
 
     @GetMapping("/showAll")
     @PreAuthorize("hasRole('ADMIN')")
-    public Page<Target> showAll(@RequestParam int page, @RequestParam int size, @RequestParam String orderBy, @RequestParam String sortCriteria) {
+    public Page<Target> showAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "kcal") String orderBy, @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.ts.findAll(page, size, orderBy, sortCriteria);
     }//http:/localhost:3001/target/showAll
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Target update(@PathVariable String id, @RequestBody TargetDTO body) {
+    public Target update(@PathVariable String id, @RequestBody @Validated TargetDTO body) {
         return this.ts.update(id, body);
     } //http:/localhost:3001/target/update/{id}
 
     @PatchMapping("/updateUser/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Target updateUser(@PathVariable String id, @RequestBody TargetUserDTO body) {
+    public Target updateUser(@PathVariable String id, @RequestBody @Validated TargetUserDTO body) {
         return this.ts.updateUser(id, body);
     }//http:/localhost:3001/target/updateUser/{id}
 
@@ -52,7 +53,7 @@ public class TargetController {
     }//http:/localhost:3001/target/myTarget
 
     @PutMapping("/updateMyTarget")
-    public Target updateMyTarget(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody TargetDTO body) {
+    public Target updateMyTarget(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody @Validated TargetDTO body) {
         return this.ts.updateMyTarget(currentUser, body);
     }//http:/localhost:3001/target/updateMyTarget
 }
