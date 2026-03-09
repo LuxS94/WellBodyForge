@@ -3,15 +3,18 @@ package org.example.be.controllers;
 import org.example.be.dto.MyMealDTO;
 import org.example.be.entities.MyMeal;
 import org.example.be.entities.UserSecurity;
+import org.example.be.exceptions.ValidationException;
 import org.example.be.services.MyMealService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/meals")
@@ -68,8 +71,16 @@ public class MyMealController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MyMeal createMeal(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody @Validated MyMealDTO body) {
-        return this.mms.create(currentUser, body);
+    public MyMeal createMeal(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody @Validated MyMealDTO body, BindingResult validationResults) {
+        if (validationResults.hasErrors()) {
+
+            List<String> errorsList = validationResults.getFieldErrors()
+                    .stream().map(fieldError -> fieldError.getDefaultMessage()).toList();
+
+            throw new ValidationException(errorsList);
+        } else {
+            return this.mms.create(currentUser, body);
+        }
     }//http://localhost:3001/meals
 
     @PutMapping("/{id}/update")

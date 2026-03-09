@@ -4,11 +4,15 @@ import org.example.be.dto.LoginDTO;
 import org.example.be.dto.LoginResDTO;
 import org.example.be.dto.UserDTO;
 import org.example.be.entities.User;
+import org.example.be.exceptions.ValidationException;
 import org.example.be.services.AuthService;
 import org.example.be.services.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -23,8 +27,16 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public User createUser(@RequestBody @Validated UserDTO payload) {
-        return this.us.create(payload);
+    public User createUser(@RequestBody @Validated UserDTO payload, BindingResult validationResults) {
+        if (validationResults.hasErrors()) {
+
+            List<String> errorsList = validationResults.getFieldErrors()
+                    .stream().map(fieldError -> fieldError.getDefaultMessage()).toList();
+
+            throw new ValidationException(errorsList);
+        } else {
+            return this.us.create(payload);
+        }
     }
 
     @PostMapping("/login")
