@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -36,25 +35,6 @@ public class MyMealController {
 
         return this.mms.findAllMyMeals(currentUser, page, size, orderBy, sortCriteria);
     }//http://localhost:3001/meals/my
-
-    @GetMapping("/MyByDate")
-    public Page<MyMeal> getMyMealsByDate(@AuthenticationPrincipal UserSecurity currentUser, @RequestParam LocalDate date, @RequestParam(defaultValue = "0") int page,
-                                         @RequestParam(defaultValue = "10") int size,
-                                         @RequestParam(defaultValue = "date") String orderBy,
-                                         @RequestParam(defaultValue = "asc") String sortCriteria
-    ) {
-        return this.mms.findMyByDate(currentUser, date, page, size, orderBy, sortCriteria);
-    }//http://localhost:3001/meals/MyByDate
-
-    @GetMapping("/ByDate")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Page<MyMeal> getMealsByDate(@AuthenticationPrincipal UserSecurity currentUser, @RequestParam LocalDate date, @RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "10") int size,
-                                       @RequestParam(defaultValue = "date") String orderBy,
-                                       @RequestParam(defaultValue = "asc") String sortCriteria
-    ) {
-        return this.mms.findByDate(date, page, size, orderBy, sortCriteria);
-    }//http://localhost:3001/meals/ByDate
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
