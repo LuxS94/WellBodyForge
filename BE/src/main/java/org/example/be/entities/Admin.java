@@ -1,9 +1,11 @@
 package org.example.be.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Admin")
+@JsonIgnoreProperties({"password"})
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

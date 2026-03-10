@@ -19,24 +19,24 @@ public class FoodController {
         this.fs = fs;
     }//http://localhost:3001/food
 
-    @GetMapping("/all")
+    @GetMapping("/f/all")
     public Page<Food> showAll(@RequestParam(defaultValue = "0") int page,
                               @RequestParam(defaultValue = "10") int size,
                               @RequestParam(defaultValue = "kcal") String orderBy,
                               @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.fs.findAllFoods(page, size, orderBy, sortCriteria);
-    }//http://localhost:3001/food/all
+    }//http://localhost:3001/food/f/all
 
-    @GetMapping("/find")
+    @GetMapping("/f/find")
     public Food findByNameAndType(@RequestParam String name, @RequestParam Type type) {
         return this.fs.findByNameAndType(name, type);
-    }//http://localhost:3001/food/find
+    }//http://localhost:3001/food/f/find?name={}&type={}
 
-    @PostMapping("/add")
+    @PostMapping("/f/add")
     @ResponseStatus(HttpStatus.CREATED)
     public Food add(@RequestBody @Validated FoodDTO body) {
         return this.fs.create(body);
-    }//http://localhost:3001/food/add
+    }//http://localhost:3001/food/f/add
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
