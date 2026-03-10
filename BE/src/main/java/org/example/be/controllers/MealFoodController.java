@@ -68,6 +68,7 @@ public class MealFoodController {
     }//http://localhost:3001/mealFood/updateMy/{id}
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public MealFood update(@PathVariable String id, @RequestBody MealFoodDTO body) {
         return this.mfs.adUpdate(id, body);
     }//http://localhost:3001/mealFood/{id}

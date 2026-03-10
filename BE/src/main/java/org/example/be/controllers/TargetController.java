@@ -1,7 +1,6 @@
 package org.example.be.controllers;
 
 import org.example.be.dto.TargetDTO;
-import org.example.be.dto.TargetUserDTO;
 import org.example.be.entities.Target;
 import org.example.be.entities.UserSecurity;
 import org.example.be.services.TargetService;
@@ -27,33 +26,38 @@ public class TargetController {
     @PreAuthorize("hasRole('ADMIN')")
     public Target showTarget(@PathVariable String id) {
         return this.ts.findById(id);
-    }//http:/localhost:3001/target/show/{id}
+    }//http://localhost:3001/target/show/{id}
 
     @GetMapping("/showAll")
     @PreAuthorize("hasRole('ADMIN')")
     public Page<Target> showAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "kcal") String orderBy, @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.ts.findAll(page, size, orderBy, sortCriteria);
-    }//http:/localhost:3001/target/showAll
+    }//http://localhost:3001/target/showAll
+
+    @GetMapping("/myTarget")
+    public Target showMyTarget(@AuthenticationPrincipal UserSecurity currentUser) {
+        return this.ts.showMyTarget(currentUser);
+    }//http://localhost:3001/target/myTarget
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public Target update(@PathVariable String id, @RequestBody @Validated TargetDTO body) {
         return this.ts.update(id, body);
-    } //http:/localhost:3001/target/update/{id}
+    } //http://localhost:3001/target/update/{id}
 
-    @PatchMapping("/updateUser/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Target updateUser(@PathVariable String id, @RequestBody @Validated TargetUserDTO body) {
-        return this.ts.updateUser(id, body);
-    }//http:/localhost:3001/target/updateUser/{id}
-
-    @GetMapping("/myTarget")
-    public Target showMyTarget(@AuthenticationPrincipal UserSecurity currentUser) {
-        return this.ts.showMyTarget(currentUser);
-    }//http:/localhost:3001/target/myTarget
 
     @PutMapping("/updateMyTarget")
     public Target updateMyTarget(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody @Validated TargetDTO body) {
         return this.ts.updateMyTarget(currentUser, body);
-    }//http:/localhost:3001/target/updateMyTarget
+    }//http://localhost:3001/target/updateMyTarget
+
+    @PutMapping("/turnDefault")
+    public Target returnDefault(@AuthenticationPrincipal UserSecurity user) {
+        return this.ts.returnDefaultValue(user);
+    }//http://localhost:3001/target/turnDefault
+
+    @PutMapping("/default/{id}")
+    public Target adReturnDefault(@PathVariable String id) {
+        return this.ts.adReturnDefaultValue(id);
+    }//http://localhost:3001/target/default/{id}
 }

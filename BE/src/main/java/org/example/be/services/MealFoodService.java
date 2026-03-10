@@ -59,8 +59,13 @@ public class MealFoodService {
     }
 
     public MealFood adCreate(MealFoodDTO body) {
-        MealFood m = new MealFood(this.mr.findById(body.mealId()).orElseThrow(() -> new NotFoundException("Meal not found")), this.fr.findById(body.foodId()).orElseThrow(() -> new NotFoundException("Food not found")), body.grams());
-        return this.mfr.save(m);
+        MyMeal f = this.mr.findById(body.mealId()).orElseThrow(() -> new NotFoundException("Meal not found"));
+        MealFood m = new MealFood(f, this.fr.findById(body.foodId()).orElseThrow(() -> new NotFoundException("Food not found")), body.grams());
+        f.getMealFoods().add(m);//add to list
+        f.calculateTotal();
+        this.mfr.save(m);
+        this.mr.save(f);
+        return m;
     }
 
     public MealFood create(MealFoodDTO body, UserSecurity user) {
@@ -68,7 +73,11 @@ public class MealFoodService {
         MyMeal mm = this.mr.findByIdAndUser(body.mealId(), f).orElseThrow(() -> new NotFoundException("Meal not found"));
         Food fo = this.fr.findById(body.foodId()).orElseThrow(() -> new NotFoundException("Food not found"));
         MealFood m = new MealFood(mm, fo, body.grams());
-        return this.mfr.save(m);
+        mm.getMealFoods().add(m);//add to list
+        mm.calculateTotal();
+        this.mfr.save(m);
+        this.mr.save(mm);
+        return m;
     }
 
     ;

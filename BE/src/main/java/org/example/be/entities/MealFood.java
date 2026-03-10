@@ -1,5 +1,6 @@
 package org.example.be.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +11,7 @@ public class MealFood {
     private String id;
     @ManyToOne
     @JoinColumn(name = "meal_id", nullable = false)
+    @JsonIgnore
     private MyMeal meal;
     @ManyToOne
     @JoinColumn(name = "food_id", nullable = false)

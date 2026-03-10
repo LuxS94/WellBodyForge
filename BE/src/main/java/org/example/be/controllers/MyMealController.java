@@ -82,11 +82,11 @@ public class MyMealController {
     }//http://localhost:3001/meals/{id}/delete
 
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMyMeal(@AuthenticationPrincipal UserSecurity currentUser, String id) {
+    public void deleteMyMeal(@AuthenticationPrincipal UserSecurity currentUser, @PathVariable String id) {
         this.mms.deleteMyMeal(currentUser, id);
-    }//http://localhost:3001/meals/delete
+    }//http://localhost:3001/meals/delete/{id}
 
     ;
 }

@@ -1,7 +1,6 @@
 package org.example.be.services;
 
 import org.example.be.dto.TargetDTO;
-import org.example.be.dto.TargetUserDTO;
 import org.example.be.entities.Target;
 import org.example.be.entities.User;
 import org.example.be.entities.UserSecurity;
@@ -57,13 +56,13 @@ public class TargetService {
         return this.tr.save(f);
     }
 
-    public Target updateUser(String targetid, TargetUserDTO body) {
-        User f = this.ur.findById(body.userid()).orElseThrow(() -> new NotFoundException("User not found"));
-        Target t = this.tr.findById(targetid).orElseThrow(() -> new NotFoundException("Target not found"));
-        t.setUser(f);
-        return this.tr.save(t);
-
-    }
+//    public Target updateUser(String targetid, TargetUserDTO body) {
+//        User f = this.ur.findById(body.userid()).orElseThrow(() -> new NotFoundException("User not found"));
+//        Target t = this.tr.findById(targetid).orElseThrow(() -> new NotFoundException("Target not found"));
+//        t.setUser(f);
+//        return this.tr.save(t);
+//
+//    }
 
     //user
     public Target showMyTarget(UserSecurity user) {
@@ -87,6 +86,19 @@ public class TargetService {
         if (body.fat() != null) {
             f.setFat(body.fat());
         }
+        return this.tr.save(f);
+    }
+
+    public Target returnDefaultValue(UserSecurity user) {
+        User u = this.ur.findById(user.getId()).orElseThrow(() -> new NotFoundException("User not found"));
+        Target f = this.tr.findByUser(u).orElseThrow(() -> new NotFoundException("Target not found"));
+        f.calculate();
+        return this.tr.save(f);
+    }
+
+    public Target adReturnDefaultValue(String id) {
+        Target f = this.tr.findById(id).orElseThrow(() -> new NotFoundException("Target not found"));
+        f.calculate();
         return this.tr.save(f);
     }
 }

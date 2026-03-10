@@ -44,7 +44,7 @@ public class UserController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public User create(UserDTO body, BindingResult validationResults) {
+    public User create(@RequestBody UserDTO body, BindingResult validationResults) {
         if (validationResults.hasErrors()) {
 
             List<String> errorsList = validationResults.getFieldErrors()
@@ -54,7 +54,7 @@ public class UserController {
         } else {
             return this.us.create(body);
         }
-    }
+    }//http://localhost:3001/user
 
     @PutMapping("/updateMe")
     public User updateMyProfile(@AuthenticationPrincipal UserSecurity currentUser, @RequestBody UserDTO body) {
@@ -71,12 +71,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMyProfile(@AuthenticationPrincipal UserSecurity currentUser) {
         this.us.delete(currentUser);
-    }//http://localhost:3001/user/deteleMe
+    }//http://localhost:3001/user/deleteMe
 
     @DeleteMapping("/{id}/delete")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProfile(@PathVariable String id) {
         this.us.adDelete(id);
-    }//http://localhost:3001/{id}/detele
+    }//http://localhost:3001/user/{id}/delete
 }

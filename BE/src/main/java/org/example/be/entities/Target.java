@@ -30,7 +30,7 @@ public class Target {
     }
 
     @PrePersist  // execute before insert in DB
-    @PreUpdate   // execute before update DB
+//    @PreUpdate   // execute before update DB
     public void calculate() {
         if (this.user == null) return;
         double BMR = 0; //basal metabolic rate

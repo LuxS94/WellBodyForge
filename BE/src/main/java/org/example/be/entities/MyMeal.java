@@ -43,7 +43,7 @@ public class MyMeal {
     @PostLoad //execute after jpa loads entity from DB
     @PostPersist // execute after entity has been saved in DB
     @PostUpdate //execute after entity has been updated
-    private void calculateTotal() {
+    public void calculateTotal() {
         tot_kcal = mealFoods.stream()
                 .mapToDouble(mf -> (mf.getFood().getKcal() / 100.0) * mf.getGrams())
                 .sum();
@@ -56,6 +56,10 @@ public class MyMeal {
         tot_fat = mealFoods.stream()
                 .mapToDouble(mf -> (mf.getFood().getFat() / 100.0) * mf.getGrams())
                 .sum();
+        setTot_kcal(tot_kcal);
+        setTot_protein(tot_protein);
+        setTot_carbs(tot_carbs);
+        setTot_fat(tot_fat);
     }
 
     public String getId() {
@@ -98,19 +102,33 @@ public class MyMeal {
         return tot_kcal;
     }
 
+    public void setTot_kcal(double tot_kcal) {
+        this.tot_kcal = tot_kcal;
+    }
+
     public double getTot_carbs() {
         return tot_carbs;
+    }
+
+    public void setTot_carbs(double tot_carbs) {
+        this.tot_carbs = tot_carbs;
     }
 
     public double getTot_protein() {
         return tot_protein;
     }
 
+    public void setTot_protein(double tot_protein) {
+        this.tot_protein = tot_protein;
+    }
 
     public double getTot_fat() {
         return tot_fat;
     }
 
+    public void setTot_fat(double tot_fat) {
+        this.tot_fat = tot_fat;
+    }
 
     @Override
     public String toString() {
