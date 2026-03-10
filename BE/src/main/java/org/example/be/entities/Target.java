@@ -84,10 +84,10 @@ public class Target {
             fatForKg = 1.0;
         }
 
-        this.kcal = (BMR * TDEE) * FFP;
-        this.protein = proteinForKg * user.getWeight();
-        this.fat = fatForKg * user.getWeight();
-        this.carbs = (this.kcal - (this.protein * 4 + this.fat * 9)) / 4;
+        this.kcal = Math.round(((BMR * TDEE) * FFP) * 100.0) / 100.0;
+        this.protein = Math.round((proteinForKg * user.getWeight()) * 100.0) / 100.0;
+        this.fat = Math.round((fatForKg * user.getWeight()) * 100.0) / 100.0;
+        this.carbs = Math.round(((this.kcal - (this.protein * 4 + this.fat * 9)) / 4) * 100.0) / 100.0;
     }
 
     public String getId() {

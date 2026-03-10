@@ -1,5 +1,6 @@
 package org.example.be.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.example.be.enums.Lifestyle;
 import org.example.be.enums.Plan;
@@ -7,6 +8,7 @@ import org.example.be.enums.Sex;
 
 @Entity
 @Table(name = "Users")
+@JsonIgnoreProperties({"password"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -18,7 +20,7 @@ public class User {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private double height;
+    private int height;
     @Column(nullable = false)
     private double weight;
     @Column(nullable = false)
@@ -40,7 +42,7 @@ public class User {
 
     ;
 
-    public User(String username, String email, String password, double height, double weight, int age, Sex sex, Lifestyle lifestyle, Plan plan) {
+    public User(String username, String email, String password, int height, double weight, int age, Sex sex, Lifestyle lifestyle, Plan plan) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -80,11 +82,11 @@ public class User {
         this.password = password;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
