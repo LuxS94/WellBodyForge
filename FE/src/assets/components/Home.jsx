@@ -1,18 +1,29 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Form } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 
 function Home() {
+    const heights = Array.from({ length: 226 }, (_, i) => 50 + i);
     return(<>
     <h1 className='welcome'>Welcome</h1>
-    <div style={{backgroundColor:'white'}} className='mt-5 rounded-3 welcome2'><h2 style={{color:'#FC7E00'}}>Start now with WellBodyForge</h2><h3 className='fw-bolder mt-5'>INSERT YOUR DATA</h3><Form className='container mt-4'><Row > <Form.Group className=""  controlId="formBasicEmail">
-        <Col className='d-inline xs={12} m={4} lg={3}'>
-        <Form.Control className="m-2 d-inline me-lg-5 ms-lg-5 mt-2 " style={{ maxWidth: '280px'}} type="text" placeholder="Choose your username" /></Col>
-         <Col className='d-inline xs={12} m={4} lg={3}'>
-        <Form.Control className="m-2 d-inline me-lg-5 ms-lg-5 mt-2 " style={{ maxWidth: '280px'}} type="email" placeholder="Enter email" /></Col>
-        <Col className='d-inline xs={12} m={4} lg={3}'>
-        <Form.Control className="m-2 d-inline me-lg-5 ms-lg-5 mt-2" style={{ maxWidth: '280px'}}type="password" placeholder="*Choose your password" /> <Form.Label className='d-block mt-2' style={{color:'grey'}}>*The password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.</Form.Label> </Col></Form.Group></Row></Form></div>
+    <div style={{backgroundColor:'white'}} className='mt-5 rounded-3 welcome2'><h2 style={{color:'#FC7E00'}}>Start now with WellBodyForge</h2><h3 className='fw-bolder mt-5'>INSERT YOUR DATA</h3><Form className='container mt-4'><Row className='justify-content-center' > 
+        <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Username</h5>
+        <Form.Control className="mt-2 "  type="text" placeholder="Choose your username" /></div></Col>
+         <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Email</h5>
+        <Form.Control className="mt-2 "  type="email" placeholder="Enter email" /></div></Col>
+        <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Password</h5>
+        <Form.Control className="mt-2 " type="password" placeholder="*Choose your password" /></div></Col> <Form.Label className='d-block mt-2 justify-content-center m-1 p-1' style={{color:'grey'}}>*The password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.</Form.Label> </Row>
+      <Row className='justify-content-center mt-5'><Col xs={12} md={3}  ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Height</h5> <Form.Select defaultValue="" className='mt-2 mb-2'> <option value="">Select your height</option> {heights.map((h) => (<option key={h} value={h}>{h} cm</option>))}
+            </Form.Select></div></Col><Col xs={12} md={3}><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Age</h5> <Form.Control className='mt-2 mb-2' type="number" placeholder="Enter your age"min={1} max={120}step={1}/></div></Col><Col xs={12} md={3}  ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Weight</h5>  <Form.Control className='mt-2 mb-2' type="number" placeholder="kg" min={0} step={0.1} /></div></Col></Row>  
+             <Row className='justify-content-center mt-5 mb-5'> <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Sex</h5><Form.Select className='mt-2 mb-2'> <option value="">Select your gender</option><option value="M">M</option><option value="F">F</option>
+  </Form.Select></div></Col>
+  <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Lifestyle</h5><Form.Select className='mt-2 mb-2'> <option value="">Select your lifestyle</option><option value="SEDENTARY">Sedentary(less than 1 training for week)</option><option value="MODERATELY_ACTIVE">Moderately active (1-3 trainings for week)</option><option value="ATHLETIC">Athletic (more than 4 trainings for week)</option>
+  </Form.Select></div></Col>
+  <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Fitness plan</h5><Form.Select className='mt-2 mb-2'> <option value="">Select your plan</option><option value="WEIGHT_LOSS">Weight loss</option><option value="MAINTENANCE">Maintenance</option><option value="BULK">Bulk</option>
+  </Form.Select></div></Col><div className='d-block'><Button className="text-center border-0 mt-5 mb-4" style={{background:'#FC7E00'}}  size="lg">Submit</Button></div></Row>
+        </Form></div>
     </>)
 }
 export default Home
