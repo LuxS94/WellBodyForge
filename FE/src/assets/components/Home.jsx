@@ -3,16 +3,19 @@ import { Col, Form } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
+import Spinner from 'react-bootstrap/Spinner';
 
 
 function Home() {
     const navigate = useNavigate();
+     const [loading, setLoading] = useState(false); 
     const port = import.meta.env.VITE_PORT;
     const heights = Array.from({ length: 226 }, (_, i) => 50 + i);
      const [form, setForm] = useState({username: '',email: '',password: '',height: '',age: '',weight: '', sex: '',lifestyle: '',plan: ''});
      const change= (e)=>{setForm({...form,[e.target.name]: e.target.value})};
      const submit=(e)=>{e.preventDefault();
+        if (loading) return; setLoading(true);
          const url= `http://localhost:${port}/auth/register`;
           fetch(url,{
     method:'POST',
@@ -22,9 +25,15 @@ function Home() {
   .then(res=>{if(res.ok){return res.json()} else {throw new Error ("Errore nella res")}})
   .then(()=>{navigate("/login")})
   .catch(err=>console.log(err))
+  .finally (()=> {setLoading(false)})
 } 
      
     return(<>
+    {loading && (
+  <div className="loading-overlay">
+    <Spinner animation="border" variant="light" />
+  </div>
+)}
     <h1 className='welcome'>Welcome</h1>
     <div style={{backgroundColor:'white'}} className='mt-5 rounded-3 welcome2'><h2 style={{color:'#FC7E00'}}>Start now with WellBodyForge</h2><h3 className='fw-bolder mt-5'>INSERT YOUR DATA</h3><Form onSubmit={submit} className='container mt-4'><Row className='justify-content-center' > 
         <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Username</h5>
@@ -40,7 +49,7 @@ function Home() {
   <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Lifestyle</h5><Form.Select onChange={change} name='lifestyle' className='mt-2 mb-2'> <option value="">Select your lifestyle</option><option value="SEDENTARY">Sedentary(less than 1 training for week)</option><option value="MODERATELY_ACTIVE">Moderately active (1-3 trainings for week)</option><option value="ATHLETIC">Athletic (more than 4 trainings for week)</option>
   </Form.Select></div></Col>
   <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Fitness plan</h5><Form.Select onChange={change} name='plan' className='mt-2 mb-2'> <option value="">Select your plan</option><option value="WEIGHT_LOSS">Weight loss</option><option value="MAINTENANCE">Maintenance</option><option value="BULK">Bulk</option>
-  </Form.Select></div></Col><div className='d-block'><Button type='submit' className="text-center border-0 mt-5 mb-4" style={{background:'#FC7E00'}}  size="lg">Submit</Button></div></Row>
+  </Form.Select></div></Col><div className='d-block'><Button type='submit'disabled={loading} className="text-center border-0 mt-5 mb-4" style={{background:'#FC7E00'}}  size="lg">Submit</Button></div></Row>
         </Form></div>
     </>)
 }
