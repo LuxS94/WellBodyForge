@@ -4,6 +4,7 @@ import { Col, Form } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 function Login() {
@@ -30,7 +31,7 @@ fetch(url,{
      {loading && (
       <div className="loading-overlay">
         <Spinner animation="border" variant="warning" />
-      </div>)} //spinner
+      </div>)} 
     <h1 className='welcome' style={{color:"white", textAlign:"center"}}>Nice to see you again!</h1>
     <div style={{backgroundColor:'white', maxWidth:'640px'}} className='mt-5 rounded-3 welcome2 mx-auto'>
         <h2 style={{color:'#FC7E00', paddingTop:"50px"}}>Log in to continue</h2>
