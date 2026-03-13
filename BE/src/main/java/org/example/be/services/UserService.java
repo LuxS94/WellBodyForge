@@ -1,5 +1,6 @@
 package org.example.be.services;
 
+import org.example.be.dto.ProfileDTO;
 import org.example.be.dto.UserDTO;
 import org.example.be.entities.Target;
 import org.example.be.entities.User;
@@ -128,5 +129,9 @@ public class UserService {
     public void adDelete(String id) {
         User f = this.ur.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
         this.ur.delete(f);
+    }
+
+    public ProfileDTO getProfile(UserSecurity u) {
+        return new ProfileDTO(u.getId(), u.getUsername(), u.getRole());
     }
 }

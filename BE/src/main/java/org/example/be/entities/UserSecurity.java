@@ -33,6 +33,10 @@ public class UserSecurity implements UserDetails {
         return id;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     @Override
     public @Nullable String getPassword() {
         return password;

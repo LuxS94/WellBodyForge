@@ -1,5 +1,6 @@
 package org.example.be.controllers;
 
+import org.example.be.dto.ProfileDTO;
 import org.example.be.dto.UserDTO;
 import org.example.be.entities.User;
 import org.example.be.entities.UserSecurity;
@@ -26,6 +27,11 @@ public class UserController {
         this.us = us;
         this.pw = pw;
     }
+
+    @GetMapping("/my")
+    public ProfileDTO getProf(@AuthenticationPrincipal UserSecurity currentUser) {
+        return this.us.getProfile(currentUser);
+    }//http://localhost:3001/user/my
 
     @GetMapping("/myProfile")
     public User showMyProfile(@AuthenticationPrincipal UserSecurity currentUser) {

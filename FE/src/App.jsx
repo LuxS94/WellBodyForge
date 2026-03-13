@@ -8,6 +8,7 @@ import Login from './assets/components/Login';
 import Error from './assets/components/Error';
 import Dashboard from './assets/components/Dashboard';
 import HomeLog from './assets/components/HomeLog';
+import MyProfile from './assets/components/MyProfile';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
      <MyNav/> <div className="text-align-center" style={{margin:"40px"}}>
      <Routes>
       {<Route path="/" element={<Home/>} />}
+      {<Route path="/profile" element={<MyProfile/>} />}
        {<Route path="/homeLog" element={<HomeLog/>} />}
        {<Route path="/learnMore" element={<LearnMore/>} />}
        {<Route path="/login" element={<Login/>} />}
