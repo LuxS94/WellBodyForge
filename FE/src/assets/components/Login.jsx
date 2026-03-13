@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Form } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -8,11 +8,12 @@ import Spinner from 'react-bootstrap/Spinner';
 
 
 function Login() {
+     const navigate = useNavigate();
+    useEffect(() => {if(localStorage.getItem("logged") === "true"){navigate("/error")}}, []);
      const [loading, setLoading] = useState(false); 
     const [form,setForm]=useState ({username:'',password:''});
     const change=(e)=>{setForm({...form,[e.target.name]: e.target.value})};
     const port = import.meta.env.VITE_PORT;
-    const navigate = useNavigate();
     const submit=(e)=>{e.preventDefault();
 const url=`http://localhost:${port}/auth/login`;
  if (loading) return; setLoading(true);
@@ -23,7 +24,7 @@ fetch(url,{
   })
   .then( async res=>{ const data = await res.json();if(res.ok){return data} else {throw new Error (data.message || data.error||"Error in response")}})
   .then(data=>{localStorage.setItem('token', data.token); localStorage.setItem("username", form.username);
-  localStorage.setItem("logged", "true");})
+  localStorage.setItem("logged", "true");window.location.href = "/dashboard"})
   .catch(err=>{console.log(err.message);navigate("/error", { state: { message: err.message } })
   .finally (()=> {setLoading(false)})
 })

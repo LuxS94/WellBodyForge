@@ -6,6 +6,7 @@ import Home from './assets/components/Home';
 import LearnMore from './assets/components/LearnMore';
 import Login from './assets/components/Login';
 import Error from './assets/components/Error';
+import Dashboard from './assets/components/Dashboard';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
        {<Route path="/learnMore" element={<LearnMore/>} />}
        {<Route path="/login" element={<Login/>} />}
         {<Route path="/error" element={<Error/>} />}
+        {<Route path="/dashboard" element={<Dashboard/>} />}
      </Routes></div>
      </BrowserRouter>
     </>
