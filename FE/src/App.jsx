@@ -7,6 +7,7 @@ import LearnMore from './assets/components/LearnMore';
 import Login from './assets/components/Login';
 import Error from './assets/components/Error';
 import Dashboard from './assets/components/Dashboard';
+import HomeLog from './assets/components/HomeLog';
 
 function App() {
 
@@ -16,8 +17,8 @@ function App() {
      <BrowserRouter>
      <MyNav/> <div className="text-align-center" style={{margin:"40px"}}>
      <Routes>
-     
-       {<Route path="/" element={<Home/>} />}
+      {<Route path="/" element={<Home/>} />}
+       {<Route path="/homeLog" element={<HomeLog/>} />}
        {<Route path="/learnMore" element={<LearnMore/>} />}
        {<Route path="/login" element={<Login/>} />}
         {<Route path="/error" element={<Error/>} />}

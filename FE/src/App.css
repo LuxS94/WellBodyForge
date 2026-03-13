@@ -28,7 +28,8 @@ body {
     opacity: 1;
   }
 }
-#login {
+#login:hover {
+  cursor: pointer;
 }
 h2,
 p,

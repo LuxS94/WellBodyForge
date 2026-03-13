@@ -5,10 +5,12 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import Spinner from 'react-bootstrap/Spinner';
+import { useEffect } from 'react';
 
 
 function Home() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+   useEffect(() => {if(localStorage.getItem("logged") === "true"){navigate("/error")}},);
      const [loading, setLoading] = useState(false); 
     const port = import.meta.env.VITE_PORT;
     const heights = Array.from({ length: 226 }, (_, i) => 50 + i);
