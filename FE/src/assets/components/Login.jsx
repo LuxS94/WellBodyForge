@@ -22,7 +22,8 @@ fetch(url,{
     body:JSON.stringify(form)
   })
   .then( async res=>{ const data = await res.json();if(res.ok){return data} else {throw new Error (data.message || data.error||"Error in response")}})
-  .then(data=>{localStorage.setItem('token', data.token);})
+  .then(data=>{localStorage.setItem('token', data.token); localStorage.setItem("username", form.username);
+  localStorage.setItem("logged", "true");})
   .catch(err=>{console.log(err.message);navigate("/error", { state: { message: err.message } })
   .finally (()=> {setLoading(false)})
 })
@@ -40,12 +41,12 @@ fetch(url,{
         <Col className=' d-flex justify-content-center'  xs={12}>
         <div className='d-flex align-items-center flex-column' style={{width:"100%", maxWidth:"640px"}}>
             <h5 className='m-0 p-0 fw-light '>Username</h5>
-        <Form.Control onChange={change} style={{maxWidth:"500px", textAlign:"center"}} className="mt-3"  type="text" placeholder="Choose your username" name='username' />
+        <Form.Control onChange={change} style={{maxWidth:"500px", textAlign:"center"}} className="mt-3"  type="text" placeholder="Enter your username" name='username' />
         </div></Col>
          <Col className=' d-flex justify-content-center'  xs={12}>
         <div className='d-flex align-items-center flex-column mt-5' style={{width:"100%", maxWidth:"640px"}}>
             <h5 className='m-0 p-0 fw-light '>Password</h5>
-        <Form.Control  onChange={change} style={{maxWidth:"500px", textAlign:"center"}} type="password" className="mt-3" placeholder="Choose your password" name='password' />
+        <Form.Control  onChange={change} style={{maxWidth:"500px", textAlign:"center"}} type="password" className="mt-3" placeholder="Enter your password" name='password' />
         </div></Col>
         </Row>
         <div className='d-block pb-3'><Button type='submit' disabled={loading} className="text-center border-0 mt-5 mb-4 " style={{background:'#FC7E00'}}  size="lg">Log in</Button></div>
