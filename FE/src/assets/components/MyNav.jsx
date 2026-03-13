@@ -13,7 +13,7 @@ function MyNav() {
             <Nav.Link className='align-content-center fw-bolder' as={Link} to='/'>Home</Nav.Link>
              <Nav.Link className='align-content-center fw-bolder'as={Link} to='/learnMore'>More</Nav.Link>
           </Nav>
-          <Nav.Link id='login' style={{height:'50px'}} className='align-content-center' as={Link} to=''><i className="bi bi-person-circle me-3 mb-1"></i>LogIn</Nav.Link>
+          <Nav.Link id='login' style={{height:'50px'}} className='align-content-center' as={Link} to='/login'><i className="bi bi-person-circle me-3 mb-1"></i>LogIn</Nav.Link>
         </Container>
       </Navbar></>)}
       export default MyNav

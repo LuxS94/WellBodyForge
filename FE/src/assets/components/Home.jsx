@@ -22,17 +22,17 @@ function Home() {
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(form)
   })
-  .then(res=>{if(res.ok){return res.json()} else {throw new Error ("Errore nella res")}})
+  .then( async res=>{ const data = await res.json();if(res.ok){return data} else {throw new Error (data.message || data.error||"Errorin response")}})
   .then(()=>{navigate("/login")})
-  .catch(err=>console.log(err))
+  .catch(err=>{console.log(err.message);navigate("/error", { state: { message: err.message } });})
   .finally (()=> {setLoading(false)})
 } 
      
     return(<>
     {loading && (
   <div className="loading-overlay">
-    <Spinner animation="border" variant="light" />
-  </div>
+    <Spinner animation="border" variant="warning" />
+  </div> //spinner
 )}
     <h1 className='welcome'>Welcome</h1>
     <div style={{backgroundColor:'white'}} className='mt-5 rounded-3 welcome2'><h2 style={{color:'#FC7E00'}}>Start now with WellBodyForge</h2><h3 className='fw-bolder mt-5'>INSERT YOUR DATA</h3><Form onSubmit={submit} className='container mt-4'><Row className='justify-content-center' > 

@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNav from './assets/components/MyNav';
 import Home from './assets/components/Home';
 import LearnMore from './assets/components/LearnMore';
+import Login from './assets/components/Login';
+import Error from './assets/components/Error';
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
      
        {<Route path="/" element={<Home/>} />}
        {<Route path="/learnMore" element={<LearnMore/>} />}
+       {<Route path="/login" element={<Login/>} />}
+        {<Route path="/error" element={<Error/>} />}
      </Routes></div>
      </BrowserRouter>
     </>
