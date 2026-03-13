@@ -9,7 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 function Login() {
      const navigate = useNavigate();
-    useEffect(() => {if(localStorage.getItem("logged") === "true"){navigate("/error")}}, []);
+    useEffect(() => {if(localStorage.getItem("logged") === "true"){navigate("/error")}},);
      const [loading, setLoading] = useState(false); 
     const [form,setForm]=useState ({username:'',password:''});
     const change=(e)=>{setForm({...form,[e.target.name]: e.target.value})};
