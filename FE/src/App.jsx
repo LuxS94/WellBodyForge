@@ -7,8 +7,8 @@ import LearnMore from './assets/components/LearnMore';
 import Login from './assets/components/Login';
 import Error from './assets/components/Error';
 import Dashboard from './assets/components/Dashboard';
-import HomeLog from './assets/components/HomeLog';
-import MyProfile from './assets/components/MyProfile';
+import HomeLog from './assets/components/dash/HomeLog';
+import MyProfile from './assets/components/dash/MyProfile';
 
 function App() {
 

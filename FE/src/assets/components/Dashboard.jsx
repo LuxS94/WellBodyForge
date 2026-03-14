@@ -10,7 +10,7 @@ function Dashboard () {
         <h2 style={{textDecoration:'bolder',margin:'30px'}}>{username}'s dashboard:</h2>
         <Row>
             <Col xs={12} md={6} lg={3}>
- <Card className='mcard' onClick={() => navigate('/')}>
+ <Card className='mcard' onClick={() => navigate('/profile')}>
       <Card.Body>
         <Card.Title><i className="bi bi-person-circle me-2 mb-1"></i>My Profile</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Show my profile</Card.Subtitle>
