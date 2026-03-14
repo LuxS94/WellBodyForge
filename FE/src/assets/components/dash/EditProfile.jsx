@@ -108,8 +108,8 @@ const change= (e)=>{setUser({...user,[e.target.name]: e.target.value})};
   <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Lifestyle</h5><Form.Select onChange={change} name='lifestyle' className='mt-2 mb-2' value={user.lifestyle}> <option value="">Select your lifestyle</option><option value="SEDENTARY">Sedentary(less than 1 training for week)</option><option value="MODERATELY_ACTIVE">Moderately active (1-3 trainings for week)</option><option value="ATHLETIC">Athletic (more than 4 trainings for week)</option>
   </Form.Select></div></Col>
   <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Fitness plan</h5><Form.Select onChange={change} name='plan' className='mt-2 mb-2'value={user.plan}> <option value="">Select your plan</option><option value="WEIGHT_LOSS">Weight loss</option><option value="MAINTENANCE">Maintenance</option><option value="BULK">Bulk</option>
-  </Form.Select></div></Col><div className='d-block'><Button type='submit'disabled={loading} className="text-center border-0 mt-5 mb-4" style={{background:'#FC7E00'}}  size="lg">Edit</Button></div></Row></>):(null)}
-        </Form></div></>
+  </Form.Select></div></Col><div className='d-block'></div></Row></>):(null)}
+        <Button type='submit'disabled={loading} className="text-center border-0 mt-5 mb-4" style={{background:'#FC7E00'}}  size="lg">Edit</Button></Form></div></>
   );
 }
 export default EditProfile

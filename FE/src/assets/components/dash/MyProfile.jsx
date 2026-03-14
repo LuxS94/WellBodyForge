@@ -36,6 +36,30 @@ function MyProfile() {
             }
           })
           .catch(err=>{console.log(err.message); })},[]);
+  const deleteP=()=>{
+    let url;
+    if(user.role==="USER"){url=`http://localhost:${port}/user/deleteMe`}else{url=`http://localhost:${port}/admin`}
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          localStorage.removeItem('token');
+          localStorage.setItem('logged', 'false');
+          location.href = "/";
+        } else {
+          throw new Error("Error deleting profile");
+        }
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  };
+
   return (<><h1 className="welcome">My Profile</h1>
      <div style={{backgroundColor:'white', maxWidth:'640px'}} className='mt-5 rounded-3 welcome2 mx-auto' >
       <h5 className="pt-4">Username: {user.username}</h5>
@@ -50,7 +74,7 @@ function MyProfile() {
        <h5>Plan: {user.plan}</h5></>):(null)}
        <Button onClick={()=>navigate("/edit")}  className="text-center border-0 mt-3 mb-2"style={{background:'#FC7E00', width:'150px'}}  size="lg">Edit profile</Button>
        <br/>
-       <Button  className="text-center border-0 mt-3 mb-4"style={{background:'#f41212'}}  size="lg">Delete profile</Button>
+       <Button onClick={deleteP}  className="text-center border-0 mt-3 mb-4"style={{background:'#f41212'}}  size="lg">Delete profile</Button>
 
     </div></>
   );
