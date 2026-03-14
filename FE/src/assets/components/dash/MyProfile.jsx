@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 
 
 function MyProfile() {
+  const navigate = useNavigate();
     const [user, setUser] = useState({username:'',email:'',height:'',age:'',weight:'',sex:'',lifestyle:'',plan:'',role:''});
    const port = import.meta.env.VITE_PORT;
     useEffect(() => { 
@@ -45,7 +48,7 @@ function MyProfile() {
        <h5>Sex: {user.sex}</h5>
        <h5>Lifestyle: {user.lifestyle}</h5>
        <h5>Plan: {user.plan}</h5></>):(null)}
-       <Button  className="text-center border-0 mt-3 mb-2"style={{background:'#FC7E00', width:'150px'}}  size="lg">Edit profile</Button>
+       <Button onClick={()=>navigate("/edit")}  className="text-center border-0 mt-3 mb-2"style={{background:'#FC7E00', width:'150px'}}  size="lg">Edit profile</Button>
        <br/>
        <Button  className="text-center border-0 mt-3 mb-4"style={{background:'#f41212'}}  size="lg">Delete profile</Button>
 
