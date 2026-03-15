@@ -1,41 +1,14 @@
-import { useEffect } from "react";
-import { useState } from "react";
+
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import useUser from "../useUser";
 
 
 
 function MyProfile() {
+  const port = import.meta.env.VITE_PORT;
   const navigate = useNavigate();
-    const [user, setUser] = useState({username:'',email:'',height:'',age:'',weight:'',sex:'',lifestyle:'',plan:'',role:''});
-   const port = import.meta.env.VITE_PORT;
-    useEffect(() => { 
-      const url=`http://localhost:${port}/user/my`
-        fetch(url, {
-  method: 'GET', 
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('token')}`
-  }
-})
-          .then(async res =>{const data= await res.json(); if(res.ok){return data} else {throw new Error (data.message || data.error||"Error in response")}})
-          .then(data => {
-            if (data.role === "USER") {
-              fetch(`http://localhost:${port}/user/myProfile`, {
-  method: 'GET', 
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('token')}`
-  }
-})
-                .then(async res =>{const data=await res.json(); if(res.ok){return data} else {throw new Error (data.message || data.error||"Error in response")}})
-                .then(data => setUser({username: data.username, email: data.email, role: "USER", height: data.height, age: data.age, weight: data.weight,plan: data.plan, lifestyle: data.lifestyle, sex:data.sex}))
-                .catch(err=>{console.log(err.message); })
-            } else {
-              setUser({username: data.username, email: data.email, role: data.role});
-            }
-          })
-          .catch(err=>{console.log(err.message); })},[]);
+  const user = useUser();
   const deleteP=()=>{
     let url;
     if(user.role==="USER"){url=`http://localhost:${port}/user/deleteMe`}else{url=`http://localhost:${port}/admin`}

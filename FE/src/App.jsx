@@ -10,6 +10,7 @@ import Dashboard from './assets/components/Dashboard';
 import HomeLog from './assets/components/dash/HomeLog';
 import MyProfile from './assets/components/dash/MyProfile';
 import EditProfile from './assets/components/dash/EditProfile';
+import Target from './assets/components/dash/Target';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
      <Routes>
       {<Route path="/" element={<Home/>} />}
       {<Route path="/profile" element={<MyProfile/>} />}
+      {<Route path="/target" element={<Target/>} />}
         {<Route path="/edit" element={<EditProfile/>} />}
        {<Route path="/homeLog" element={<HomeLog/>} />}
        {<Route path="/learnMore" element={<LearnMore/>} />}
