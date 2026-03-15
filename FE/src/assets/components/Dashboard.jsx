@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import { useEffect } from 'react';
-import useUser from "./useUser";
+import useUser from "../script/useUser";
 function Dashboard () {
   const navigate = useNavigate();
   const user = useUser();

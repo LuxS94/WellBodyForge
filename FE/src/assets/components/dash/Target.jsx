@@ -1,7 +1,7 @@
-// import useUser from "../useUser";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 function Target() {
    
@@ -45,6 +45,7 @@ fetch(url, {
 <h5>Carbs: {target.carbs}g</h5>
 <h5>Protein: {target.protein}g</h5>
 <h5 className="pb-3 mb-3">Fats: {target.fat}g</h5>
+<Button type='submit' onClick={()=>navigate("/customTarget")} className="text-center border-0 mt-3 mb-4" style={{background:'#FC7E00'}}  size="lg">Customize</Button>
     </div>
 
     </>)
