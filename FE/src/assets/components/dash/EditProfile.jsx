@@ -47,10 +47,9 @@ function EditProfile() {
           })
           .catch(err=>{console.log(err.message); })},[]);
 const change = (e) => {
-  const { name, value } = e.target;  
-  setUser({ ...user, [name]: value });
-  if (name === 'password') {         
-    const error = validatePassword(value); 
+  setUser({ ...user, [e.target.name]: e.target.value });
+  if (e.target.name === 'password') {         
+    const error = validatePassword(e.target.value); 
     setPasswordError(error);              
   }
 };

@@ -1,7 +1,7 @@
 function HomeLog() {
-   
-    return(<>
-   
+   const username= localStorage.getItem("username");
+    return(<><h1 className='welcome' >Hey {username}!</h1>
+    <div style={{backgroundColor:'white', textAlign:'center'}} className='mt-5 ps-1 rounded-3 welcome2 '><h2 style={{color:'#FC7E00'}}>Start your journey</h2><h5><i class="bi bi-bullseye me-2"></i>Take a look at your target!</h5><p> We’ve already calculated your daily calorie and macronutrient targets based on your personal needs. Don’t worry, you can tweak them anytime in the My Target section!</p><h5><i class="bi bi-person-circle me-2"></i>Has anything changed? Update your profile!</h5><p>You can update your profile anytime in the My Profile section, and your target will be recalculated based on your needs and preferences!</p><h5><i class="bi bi-egg-fried me-2"></i>Hungry? Take a meal...</h5><p> Add your meals in My Meals and keep track of your progress—see how close you are to smashing your goals every day.</p><h4 className="mt-4"  style={{color:'#FC7E00',marginTop:'10px',marginLeft:'10px',padding:'5px'}}>WellBodyForge is here to guide, motivate, and even surprise you along the way.</h4><h4 style={{color:'#FC7E00',marginLeft:'10px',marginBottom:'10px',padding:'5px'}}> Ready to forge your best self? Let’s make every bite count!</h4><p className="pb-4 mt-4" style={{color:'black',textAlign:'center'}}>Explore challenges, unlock achievements, and turn healthy habits into fun rituals. Your journey starts now, forge ahead!</p></div>
     </>)
 }
 export default HomeLog
