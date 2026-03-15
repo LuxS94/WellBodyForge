@@ -24,7 +24,7 @@ function Home() {
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(form)
   })
-  .then( async res=>{ const data = await res.json();if(res.ok){return data} else {throw new Error (data.message || data.error||"Errorin response")}})
+  .then( async res=>{ const data = await res.json();if(res.ok){return data} else {throw new Error (data.message || data.error||"Error in response")}})
   .then(()=>{navigate("/login")})
   .catch(err=>{console.log(err.message);navigate("/error", { state: { message: err.message } });})
   .finally (()=> {setLoading(false)})
