@@ -9,7 +9,7 @@ function EditProfile() {
      const port = import.meta.env.VITE_PORT;
      const heights = Array.from({ length: 226 }, (_, i) => 50 + i);
        const [user, setUser] = useState({username:'',email:'',password:'',height:'',age:'',weight:'',sex:'',lifestyle:'',plan:''});
-     useEffect(() => {if(localStorage.getItem("logged") === "false"){navigate("/error")}; const url=`http://localhost:${port}/user/my`
+     useEffect(() => {const url=`http://localhost:${port}/user/my`
         fetch(url, {
   method: 'GET', 
   headers: {

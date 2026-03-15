@@ -10,7 +10,6 @@ function Target() {
     const url = `http://localhost:${port}/target/myTarget`;
     const[target,setTarget]=useState({kcal:'',carbs:'',protein:'',fat:''})
  useEffect(() => {
-  if(localStorage.getItem("logged") === "false"){navigate("/error")};
 fetch(url, {
   method: "GET",
   headers: {
