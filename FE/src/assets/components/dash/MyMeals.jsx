@@ -85,15 +85,16 @@ fetch(`http://localhost:${port}/meals/my?date=${dates.toLocaleDateString("en-CA"
        <Button  onClick={() => setShowForm(!showForm)} className= "text-center border-0 mt-4 mb-4 ms-4" style={{background:'#FC7E00'}}  size="lg">Add Meal</Button>
        {showForm && (<div className='d-flex justify-content-center pb-4' style={{zIndex: 9999, position: "sticky",
             top: 270}}>
-        <Card className='w-75'
+        <Card 
           style={{
             marginTop: "20px",
-            maxWidth: "300px",
+            width:"500px",
             padding: "15px",
             backgroundColor: "#fff",
+            
           }}
         >
-          <h5>Inserisci i dati</h5>
+          <h5>Insert meal</h5>
           <Form onSubmit={addMeal}>
             <Form.Group className="mb-3" controlId="exampleEmail">
               <Form.Label>Description</Form.Label>
@@ -121,7 +122,7 @@ fetch(`http://localhost:${port}/meals/my?date=${dates.toLocaleDateString("en-CA"
            <p><strong>Protein:</strong> {meal.tot_protein} g</p>
         <p><strong>Carbs:</strong> {meal.tot_carbs} g</p>
         <p><strong>Fat:</strong> {meal.tot_fat} g</p></Card.Footer><div className='d-flex justify-content-center align-content-center'>
-        <Button style={{background:'#FC7E00',maxHeight:'38px'}} className= "text-center me-2 mb-2" size="md">Add food</Button>
+        <Button style={{background:'#FC7E00',maxHeight:'38px',borderColor:'#FC7E00'}} className= "text-center me-2 mb-2" size="md">Add food</Button>
         <Button style={{maxHeight:'38px'}} onClick={()=>remove(meal.id)} variant="danger" className= "text-center " size="md">Remove</Button></div>
       </Card.Body>
     </Card></Col>
