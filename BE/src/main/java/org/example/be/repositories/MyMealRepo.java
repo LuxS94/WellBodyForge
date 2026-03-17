@@ -16,7 +16,7 @@ public interface MyMealRepo extends JpaRepository<MyMeal, String> {
 
     Page<MyMeal> findByUserId(String id, Pageable pageable);
 
-    Page<MyMeal> findByDateAndUserId(String id, LocalDate date, Pageable pageable);
+    Page<MyMeal> findByDateAndUserId(LocalDate date, String id, Pageable pageable);
 
     Optional<MyMeal> findByIdAndUser(String id, User user);
 

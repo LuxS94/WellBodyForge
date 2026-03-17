@@ -23,7 +23,14 @@ function Dashboard () {
         <Card.Title><i class="bi bi-bullseye me-2  mb-1"></i>Target</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Show my target</Card.Subtitle>
       </Card.Body>
-    </Card></Col></>):(null)}</Row>
+    </Card></Col>
+    <> <Col xs={12} sm={6} lg={3}>
+ <Card className='mcard text-center' onClick={() => navigate('/myMeals')}>
+      <Card.Body>
+        <Card.Title><i class="bi bi-fork-knife me-2  mb-1"></i>My Meals</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">Manage my meals</Card.Subtitle>
+      </Card.Body>
+    </Card></Col></></>):(null)}</Row>
     </div>
    
     </>)

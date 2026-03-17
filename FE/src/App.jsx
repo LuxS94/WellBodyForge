@@ -13,6 +13,7 @@ import EditProfile from './assets/components/dash/EditProfile';
 import Target from './assets/components/dash/Target';
 import CustomTarget from './assets/components/dash/CustomTarget';
 import ProtectedRoute from './assets/components/ProtectedRoute';
+import MyMeals from './assets/components/dash/MyMeals';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
       {<Route path="/customTarget" element={<CustomTarget/>} />}
       {<Route path="/edit" element={<EditProfile/>} />}
       {<Route path="/homeLog" element={<HomeLog/>} />}
+      {<Route path="/myMeals" element={<MyMeals/>} />}
       {<Route path="/dashboard" element={<Dashboard/>} />}
       </Route>
      </Routes></div>

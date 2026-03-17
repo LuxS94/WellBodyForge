@@ -1,3 +1,4 @@
+@import "flatpickr/dist/flatpickr.min.css";
 #root {
   height: 100%;
 }
@@ -66,4 +67,8 @@ h3 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   max-height: 120px;
+}
+#prev,
+#next :hover {
+  cursor: pointer;
 }

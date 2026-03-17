@@ -30,11 +30,12 @@ public class MyMealController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "date") String orderBy,
-            @RequestParam(defaultValue = "asc") String sortCriteria
+            @RequestParam(defaultValue = "asc") String sortCriteria,
+            @RequestParam(required = false) String date
     ) {
 
-        return this.mms.findAllMyMeals(currentUser, page, size, orderBy, sortCriteria);
-    }//http://localhost:3001/meals/my
+        return this.mms.findAllMyMeals(currentUser, page, size, orderBy, sortCriteria, date);
+    }//http://localhost:3001/meals/my?page=0&size=10&orderBy=date&sortCriteria=asc
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
