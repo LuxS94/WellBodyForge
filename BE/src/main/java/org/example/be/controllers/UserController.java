@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public Page<User> showsAllUsers(@RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(defaultValue = "1000") int size,
                                     @RequestParam(defaultValue = "username") String orderBy,
                                     @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.us.findAllUsers(page, size, orderBy, sortCriteria);

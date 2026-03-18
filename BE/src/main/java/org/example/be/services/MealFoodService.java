@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MealFoodService {
@@ -30,7 +31,6 @@ public class MealFoodService {
     }
 
     public Page<MealFood> findAll(int page, int size, String orderBy, String sortCriteria) {
-        if (size > 100 || size < 0) size = 10;
         if (page < 0) page = 0;
         Pageable pageable = PageRequest.of(page, size,
                 sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
@@ -38,8 +38,6 @@ public class MealFoodService {
     }
 
     public Page<MealFood> findAllMy(int page, int size, String orderBy, String sortCriteria, UserSecurity currentUser) {
-
-        if (size > 100 || size < 0) size = 10;
         if (page < 0) page = 0;
 
         Pageable pageable = PageRequest.of(page, size,
@@ -103,16 +101,17 @@ public class MealFoodService {
         return this.mfr.save(m);
     }
 
+    @Transactional
     public void delete(String mealFoodId, UserSecurity currentUser) {
 
         MealFood m = mfr.findByIdAndMeal_User_Id(mealFoodId, currentUser.getId())
                 .orElseThrow(() -> new NotFoundException("MealFood not found or not yours"));
-        mfr.delete(m);
+        m.getMeal().getMealFoods().remove(m);//removes by list
+        //mfr.delete(m);
     }
 
     public void adDelete(String mealFoodId) {
         MealFood m = mfr.findById(mealFoodId).orElseThrow(() -> new NotFoundException("MealFood not found or not yours"));
         mfr.delete(m);
     }
-
 }

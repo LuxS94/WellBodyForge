@@ -22,7 +22,7 @@ public class MealFoodController {
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public Page<MealFood> showAll(@RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "10") int size,
+                                  @RequestParam(defaultValue = "1000") int size,
                                   @RequestParam(defaultValue = "grams") String orderBy,
                                   @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.mfs.findAll(page, size, orderBy, sortCriteria);
@@ -37,7 +37,7 @@ public class MealFoodController {
     @GetMapping("/myAll")
     public Page<MealFood> findAllMy(@AuthenticationPrincipal UserSecurity user,
                                     @RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(defaultValue = "1000") int size,
                                     @RequestParam(defaultValue = "grams") String orderBy,
                                     @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.mfs.findAllMy(page, size, orderBy, sortCriteria, user);

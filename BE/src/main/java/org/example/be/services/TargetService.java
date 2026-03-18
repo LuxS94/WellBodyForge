@@ -34,7 +34,6 @@ public class TargetService {
     }
 
     public Page<Target> findAll(int page, int size, String orderBy, String sortCriteria) {
-        if (size > 100 || size < 0) size = 10;
         if (page < 0) page = 0;
         Pageable pageable = PageRequest.of(page, size,
                 sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));

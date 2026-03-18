@@ -28,7 +28,7 @@ public class MyMealController {
     public Page<MyMeal> getMyMeals(
             @AuthenticationPrincipal UserSecurity currentUser,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "1000") int size,
             @RequestParam(defaultValue = "date") String orderBy,
             @RequestParam(defaultValue = "asc") String sortCriteria,
             @RequestParam(required = false) String date
@@ -41,7 +41,7 @@ public class MyMealController {
     @PreAuthorize("hasRole('ADMIN')")
     public Page<MyMeal> findAllMeals(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "1000") int size,
             @RequestParam(defaultValue = "date") String orderBy,
             @RequestParam(defaultValue = "asc") String sortCriteria
     ) {
