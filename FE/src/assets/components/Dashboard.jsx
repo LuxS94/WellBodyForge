@@ -37,7 +37,7 @@ function Dashboard () {
     <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
  <Card className={user.role==="USER"? 'mcard':'acard' }onClick={() => navigate('/foods')}>
       <Card.Body>
-        <Card.Title><i class="bi bi-egg-fried me-2 mb-1"></i>Foods</Card.Title>
+        <Card.Title><i class="bi bi-egg-fried me-2 mb-1"></i>Food</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">View all foods</Card.Subtitle>
       </Card.Body>
     </Card></Col>

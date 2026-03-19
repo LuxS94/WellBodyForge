@@ -41,7 +41,7 @@ fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
     
 
     return(
-    <><h1 className='welcome' >Foods</h1>
+    <><h1 className='welcome' >Food</h1>
    
      <div style={{backgroundColor:'white',textAlign:'left'}} className='mt-5 welcome2 rounded-3 pt-1 pb-1 table-responsive' >
        <Row className="d-flex justify-content-center mb-3 mt-5">
