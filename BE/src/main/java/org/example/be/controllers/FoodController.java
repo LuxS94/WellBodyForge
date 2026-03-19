@@ -22,7 +22,7 @@ public class FoodController {
     @GetMapping("/f/all")
     public Page<Food> showAll(@RequestParam(defaultValue = "0") int page,
                               @RequestParam(defaultValue = "1000") int size,
-                              @RequestParam(defaultValue = "kcal") String orderBy,
+                              @RequestParam(defaultValue = "name") String orderBy,
                               @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.fs.findAllFoods(page, size, orderBy, sortCriteria);
     }//http://localhost:3001/food/f/all

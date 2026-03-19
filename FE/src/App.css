@@ -1,4 +1,6 @@
 @import "flatpickr/dist/flatpickr.min.css";
+html,
+body,
 #root {
   height: 100%;
 }

@@ -30,7 +30,7 @@ function App() {
       {<Route path="/error" element={<Error/>} />}
         <Route element={<ProtectedRoute/>}>
       {<Route path="/profile" element={<MyProfile/>} />}
-       {<Route path="/foods" element={<Foods/>} />}
+      {<Route path="/foods" element={<Foods/>} />}
       {<Route path="/target" element={<Target/>} />}
       {<Route path="/customTarget" element={<CustomTarget/>} />}
       {<Route path="/edit" element={<EditProfile/>} />}
