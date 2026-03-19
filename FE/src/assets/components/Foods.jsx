@@ -3,7 +3,9 @@ import Button from 'react-bootstrap/Button';
 import {Form } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import useUser from "../script/useUser";
 function Foods (){
+  const user=useUser()
     const[food,setFood]=useState([])
      const [search, setSearch] = useState('');
      const [showForm, setShowForm] = useState(false);
@@ -149,7 +151,7 @@ fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
       )} 
  {/*--------------------------------------------------------------------------------------------------  */}
     <Row className='ms-3'><Form.Label style={{color:'grey'}}>*Every value is calculated per 100g of product</Form.Label></Row>
-        <table class="table table-striped  table-warning " > <thead>
+        <table class={user.role==='ADMIN'? "table table-striped  table-info ":"table table-striped  table-warning "} > <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
