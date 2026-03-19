@@ -14,10 +14,11 @@ function Nuser(){
      const change= (e)=>{setForm({...form,[e.target.name]: e.target.value})};
      const submit=(e)=>{e.preventDefault();
         if (loading) return; setLoading(true);
-         const url= `http://localhost:${port}/auth/register`;
+         const url= `http://localhost:${port}/user`;
           fetch(url,{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`},
     body:JSON.stringify(form)
   })
   .then( async res=>{ const data = await res.json();if(res.ok){return data} else {throw new Error (data.message || data.error||"Error in response")}})
@@ -37,7 +38,7 @@ function Nuser(){
          <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Email</h5>
         <Form.Control onChange={change} className="mt-2 "  type="email" placeholder="Enter email"name='email' /></div></Col>
         <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Password</h5>
-        <Form.Control onChange={change} className="mt-2 " type="password" placeholder="*Choose password" name='password' /></div></Col> <Form.Label className='d-block mt-2 justify-content-center m-1 p-1' style={{color:'grey'}}>*The password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.</Form.Label> </Row>
+        <Form.Control onChange={change} className="mt-2 " type="password" placeholder="*Choose password" name='password' /></div></Col> <Form.Label className='d-block mt-2 justify-content-center m-1 px-5' style={{color:'grey'}}>*The password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.</Form.Label> </Row>
       <Row className='justify-content-center mt-5'><Col xs={12} md={3}  ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Height</h5> <Form.Select onChange={change} name='height' defaultValue="" className='mt-2 mb-2'> <option value="">Select height</option> {heights.map((h) => (<option key={h} value={h}>{h} cm</option>))}
             </Form.Select></div></Col><Col xs={12} md={3}><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Age</h5> <Form.Control onChange={change} name='age' className='mt-2 mb-2' type="number" placeholder="Enter age"min={1} max={120}step={1}/></div></Col><Col xs={12} md={3}  ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Weight</h5>  <Form.Control onChange={change} name='weight' className='mt-2 mb-2' type="number" placeholder="kg" min={0} step={0.1} /></div></Col></Row>  
              <Row className='justify-content-center mt-5 mb-5'> <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Sex</h5><Form.Select onChange={change} name='sex' className='mt-2 mb-2'> <option value="">Select gender</option><option value="M">M</option><option value="F">F</option>

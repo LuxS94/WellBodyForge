@@ -48,7 +48,15 @@ function Dashboard () {
         <Card.Title><i class="bi bi-person-add me-2 mb-1"></i>New User</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Create new user</Card.Subtitle>
       </Card.Body>
-    </Card></Col></>):null}
+    </Card></Col>
+    <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
+ <Card className='acard' onClick={() => navigate('/nadmin')}>
+      <Card.Body>
+        <Card.Title><i class="bi bi-person-gear me-2 mb-1"></i>New Admin</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">Create new admin</Card.Subtitle>
+      </Card.Body>
+    </Card></Col>
+    </>):null}
     </Row>
     </div>
    

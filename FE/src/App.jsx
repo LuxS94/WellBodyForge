@@ -16,6 +16,7 @@ import ProtectedRoute from './assets/components/ProtectedRoute';
 import MyMeals from './assets/components/dash/MyMeals';
 import Foods from './assets/components/Foods';
 import Nuser from './assets/components/admin/Nuser';
+import Nadmin from './assets/components/admin/Nadmin';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
       {<Route path="/myMeals" element={<MyMeals/>} />}
       {<Route path="/dashboard" element={<Dashboard/>} />}
       {<Route path="/nuser" element={<Nuser/>} />}
+      {<Route path="/nadmin" element={<Nadmin/>} />}
       </Route>
      </Routes></div>
      </BrowserRouter>
