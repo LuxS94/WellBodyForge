@@ -57,7 +57,7 @@ h3 {
 }
 .mcard {
   background-color: #fc7e006a;
-  max-width: 200px;
+  width: 200px;
   border: 2px solid #fc7e00;
   border-radius: 10px;
   padding: 10px;
@@ -67,6 +67,27 @@ h3 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   max-height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 158px;
+}
+.acard {
+  background-color: #04556e4b;
+  width: 200px;
+  border: 2px solid #0069fc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  max-height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 158px;
 }
 #prev,
 #next :hover {

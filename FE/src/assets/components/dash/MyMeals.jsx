@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import { Card } from 'react-bootstrap';
 import {Form}  from 'react-bootstrap';
 import {Row,Col} from 'react-bootstrap';
+import{Link} from "react-router-dom";
 function MyMeals() {
  const [meals,setMeals]=useState([]);  //for meals
  const [dates, setDates] = useState(new Date()); //for date
@@ -15,7 +16,7 @@ function MyMeals() {
  const[mealFood,setMealFood]=useState({id:null,grams:'',foodName:'',foodId:null})//for food
  const [foodSuggestions, setFoodSuggestions] = useState([]);//for form food to autocomplete 
   const[target,setTarget]=useState({kcal:'',carbs:'',protein:'',fat:''})//for target
-  const dailyTotals = meals.reduce(   //calculate tot daily macros
+  const dailyTotals = meals.reduce(                     //calculate tot daily macros
   (acc, meal) => {
     return {
       calories: acc.calories + (meal.tot_kcal || 0),
@@ -208,7 +209,7 @@ const targ=()=>{
   onChange={(e) => setDates(new Date(e.target.value))}
 />
  <i onClick={Next} id='next' style={{color:'black'}}class="bi bi-caret-right-fill"></i></div>
-      
+  {/* /* open meal entry form ------------------------------------------------------------------------------------*/} 
        <Button  onClick={() => setShowForm(!showForm)} className= "text-center border-0 mt-4 mb-4 ms-4" style={{background:'#FC7E00'}}  size="lg">Add Meal</Button>
        {showForm && (<div className='d-flex justify-content-center pb-4' style={{zIndex: 9999, position: "sticky",
             top: 270}}>
@@ -236,10 +237,12 @@ const targ=()=>{
           </Form>
         </Card></div>
       )}
+      {/* comparision section -------------------------------------------------------------------------------------*/}
        <Row className='justify-content-center my-2 '><div className='d-flex flex-row flex-wrap align-items-center justify-content-center align-content-center w-100'><h3 style={{color:'black'}}>Target/Actual:</h3><div className='d-flex flex-row '><p>Kcal: {target.kcal}/</p><p className='ms-0' style={{color: dailyTotals.calories>target.calories?'red':'green'}}>{dailyTotals.calories.toFixed(2)}</p></div><div className='d-flex flex-row'><p>Protein: {target.protein}/</p><p className='ms-0' style={{color: dailyTotals.protein>target.protein?'red':'green'}}>{dailyTotals.protein.toFixed(2)}</p></div><div className='d-flex flex-row'><p>Carbs: {target.carbs}/</p><p className='ms-0' style={{color: dailyTotals.carbs>target.carbs?'red':'green'}}>{dailyTotals.carbs.toFixed(2)}</p></div><div className='d-flex flex-row'><p>Fat: {target.fat}/</p><p className='ms-0' style={{color: dailyTotals.fat>target.fat?'red':'green'}}>{dailyTotals.fat.toFixed(2)}</p></div></div></Row>
+       {/* meal's cards ------------------------------------------------------------------------------------------------ */}
       <Row className='justify-content-center '>
  {meals.map(meal => (
-    <Col xs={11} md={6} lg={3} className='d-flex justify-content-center '><Card style={{maxWidth:'400px'}} key={meal.id} className="mb-5 ms-4 mt-2 border-black">
+    <Col xs={10} md={6} lg={3} className='d-flex justify-content-center'><Card style={{maxWidth:'400px'}} key={meal.id} className="mb-5 me-1 ms-1 mt-2 border-black">
       <Card.Body className='align-content-center'>
         <Card.Title >{meal.description}:</Card.Title>
         <Card.Footer>{meal.mealFoods.map(f => (
@@ -250,8 +253,10 @@ const targ=()=>{
            <p><strong>Protein:</strong> {meal.tot_protein.toFixed(2)} g</p>
         <p><strong>Carbs:</strong> {meal.tot_carbs.toFixed(2)} g</p>
         <p><strong>Fat:</strong> {meal.tot_fat.toFixed(2)} g</p></Card.Footer><div className='d-flex justify-content-center align-content-center'>
+{/* card's buttons-------------------------------------------------------------------------------------------------------*/}
         <Button style={{background:'#FC7E00',maxHeight:'38px',borderColor:'#FC7E00'}} className= "text-center me-2 mb-2" size="md" onClick={()=>{setShowAddFoodForm(meal.id);setMealFood({id:'',grams:'',foodName:'',foodId:null});setFoodSuggestions([]);}}>Add food</Button>
         <Button style={{maxHeight:'38px'}} onClick={()=>remove(meal.id)} variant="danger" className= "text-center " size="md">Delete</Button>
+{/* add food form  ---------------------------------------------------------------------------------------------------------*/}
         {showAddFoodForm===meal.id &&(
 <div style={{position:'fixed',zIndex:'9999',top:'280px',left:'auto',right:'auto',width:'600px',maxWidth:'90%'}}>
           <Card className="mt-2 p-3 w-75 border-4"style={{borderColor:'#FC7E00'}} >
@@ -286,6 +291,7 @@ const targ=()=>{
             ))}
           </div>
         )}
+<Form.Label style={{color:'grey'}}>Can't you find your food?<Link to='/foods'> Add it yourself!</Link></Form.Label>        
       </Form.Group>
 
       <Form.Group className="mb-2">

@@ -14,6 +14,7 @@ import Target from './assets/components/dash/Target';
 import CustomTarget from './assets/components/dash/CustomTarget';
 import ProtectedRoute from './assets/components/ProtectedRoute';
 import MyMeals from './assets/components/dash/MyMeals';
+import Foods from './assets/components/Foods';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
       {<Route path="/error" element={<Error/>} />}
         <Route element={<ProtectedRoute/>}>
       {<Route path="/profile" element={<MyProfile/>} />}
+       {<Route path="/foods" element={<Foods/>} />}
       {<Route path="/target" element={<Target/>} />}
       {<Route path="/customTarget" element={<CustomTarget/>} />}
       {<Route path="/edit" element={<EditProfile/>} />}

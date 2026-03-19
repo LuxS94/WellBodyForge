@@ -11,26 +11,33 @@ function Dashboard () {
     <div style={{backgroundColor:'white',textAlign:'left'}} className='mt-5 welcome2 rounded-3 pt-1 pb-1' >
         <h2 style={{textDecoration:'bolder',margin:'30px'}}>{username}'s dashboard:</h2>
         <Row className='d-flex justify-content-center '>
-            <Col xs={12} sm={6} lg={3}>
- <Card className='mcard text-center' onClick={() => navigate('/profile')}>
+            <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
+ <Card className={user.role==="USER"? 'mcard':'acard' }onClick={() => navigate('/profile')}>
       <Card.Body>
         <Card.Title><i className="bi bi-person-circle me-2  mb-1"></i>My Profile</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Show my profile</Card.Subtitle>
       </Card.Body>
-    </Card></Col>{user.role==="USER"?(<> <Col xs={12} sm={6} lg={3}>
- <Card className='mcard text-center' onClick={() => navigate('/target')}>
+    </Card></Col>{user.role==="USER"?(<> <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
+ <Card className='mcard d-flex justify-content-center align-items-center' onClick={() => navigate('/target')}>
       <Card.Body>
         <Card.Title><i class="bi bi-bullseye me-2  mb-1"></i>Target</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Show my target</Card.Subtitle>
       </Card.Body>
     </Card></Col>
-    <> <Col xs={12} sm={6} lg={3}>
- <Card className='mcard text-center' onClick={() => navigate('/myMeals')}>
+    <> <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
+ <Card className='mcard d-flex justify-content-center align-items-center' onClick={() => navigate('/myMeals')}>
       <Card.Body>
         <Card.Title><i class="bi bi-fork-knife me-2  mb-1"></i>My Meals</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Manage my meals</Card.Subtitle>
       </Card.Body>
-    </Card></Col></></>):(null)}</Row>
+    </Card></Col></></>):(null)}
+    <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
+ <Card className={user.role==="USER"? 'mcard':'acard' }onClick={() => navigate('/foods')}>
+      <Card.Body>
+        <Card.Title><i class="bi bi-egg-fried me-2 mb-1"></i>Foods</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">View all foods</Card.Subtitle>
+      </Card.Body>
+    </Card></Col></Row>
     </div>
    
     </>)

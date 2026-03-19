@@ -24,8 +24,9 @@ function MyNav() {
       <Nav className="me-auto">
             <Nav.Link className='align-content-center fw-bolder' as={Link} to={username ? '/homeLog' : '/'}>Home</Nav.Link>
              <Nav.Link className='align-content-center fw-bolder'as={Link} to='/learnMore'>More</Nav.Link>
+{/* only if user is logged ----------------------------------------------------------------------------------------------*/}
              {username 
-            ?( <><Nav.Link className='align-content-center fw-bolder'as={Link} to='/dashboard'>My dashboard</Nav.Link></>):null}
+            ?( <><Nav.Link className='align-content-center fw-bolder'as={Link} to='/dashboard'>My dashboard</Nav.Link><Nav.Link className='align-content-center fw-bolder'as={Link} to='/foods'>Foods</Nav.Link></>):null}
           </Nav>
           <Nav>
           <Nav.Link id='login' style={{height:'50px'}} className='align-content-center d-none d-md-flex justify-content-center align-items-center' as={username ? "span" : Link} to={username ? '#' : '/login'}>{username 
