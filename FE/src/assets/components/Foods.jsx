@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react"
+import Button from 'react-bootstrap/Button';
+import {Form } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 function Foods (){
     const[food,setFood]=useState([])
+     const [search, setSearch] = useState('');
     const port=import.meta.env.VITE_PORT;
-      useEffect(()=>{
+     const filteredFood = food.filter(f =>
+    f.name.toLowerCase().includes(search.toLowerCase())
+  );
+  const gfood=()=>{
 fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -11,12 +18,27 @@ fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
   })
     .then(res => res.json())
     .then(data => {setFood(data.content)} )
-    .catch(err => console.log(err));},[])
+    .catch(err => console.log(err));}
+      useEffect(()=>{
+       gfood();},[]);
+    
 
     return(
     <><h1 className='welcome' >Foods</h1>
+   
      <div style={{backgroundColor:'white',textAlign:'left'}} className='mt-5 welcome2 rounded-3 pt-1 pb-1 table-responsive' >
-        <table class="table table-striped mt-5 table-info "><thead>
+       <Row className="d-flex justify-content-center mb-3 mt-5">
+          <Form.Control
+            type="text"
+            placeholder="Search food..."
+            style={{ maxWidth: '300px' }}
+            value={search}
+            onChange={e => {setSearch(e.target.value),gfood()}}
+          />
+        </Row>
+     <Row className='d-flex justify-content-center' ><Button className="text-center border-0 mt-5 mb-4" style={{background:'#FC7E00',maxWidth:'170px'}}size="lg">Add food</Button></Row>
+    <Row className='ms-3'><Form.Label style={{color:'grey'}}>*Every value is calculated per 100g of product</Form.Label></Row>
+        <table class="table table-striped  table-warning " > <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
@@ -27,7 +49,7 @@ fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
       <th scope="col">Fat</th>
     </tr>
   </thead>
-   <tbody>{food.map((f,index)=>(
+   <tbody>{filteredFood.map((f,index)=>(
    <tr key={index}> <th>{index+1}</th><td>{f.name}</td><td>{f.type}</td><td>{f.calories}</td><td>{f.protein}</td><td>{f.carbs}</td><td>{f.fat}</td></tr>
    ))}</tbody>
   </table></div> </>)
