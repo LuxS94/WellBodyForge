@@ -74,6 +74,9 @@ h3 {
   align-items: center;
   min-width: 158px;
 }
+.acard:hover {
+  cursor: pointer;
+}
 .acard {
   background-color: #04556e4b;
   width: 200px;

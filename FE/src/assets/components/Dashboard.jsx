@@ -17,7 +17,9 @@ function Dashboard () {
         <Card.Title><i className="bi bi-person-circle me-2  mb-1"></i>My Profile</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Show my profile</Card.Subtitle>
       </Card.Body>
-    </Card></Col>{user.role==="USER"?(<> <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
+    </Card></Col>
+    {/* user only-------------------------------------------------------------------------------------------- */}
+    {user.role==="USER"?(<> <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
  <Card className='mcard d-flex justify-content-center align-items-center' onClick={() => navigate('/target')}>
       <Card.Body>
         <Card.Title><i class="bi bi-bullseye me-2  mb-1"></i>Target</Card.Title>
@@ -31,13 +33,23 @@ function Dashboard () {
         <Card.Subtitle className="mb-2 text-muted">Manage my meals</Card.Subtitle>
       </Card.Body>
     </Card></Col></></>):(null)}
+    {/* ---------------------------------------------------------------------------------------------------------------- */}
     <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
  <Card className={user.role==="USER"? 'mcard':'acard' }onClick={() => navigate('/foods')}>
       <Card.Body>
         <Card.Title><i class="bi bi-egg-fried me-2 mb-1"></i>Foods</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">View all foods</Card.Subtitle>
       </Card.Body>
-    </Card></Col></Row>
+    </Card></Col>
+    {/* admin only----------------------------------------------------------------------------------------------------- */}
+    {user.role==="ADMIN"?(<><Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
+ <Card className='acard' onClick={() => navigate('/nuser')}>
+      <Card.Body>
+        <Card.Title><i class="bi bi-person-add me-2 mb-1"></i>New User</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">Create new user</Card.Subtitle>
+      </Card.Body>
+    </Card></Col></>):null}
+    </Row>
     </div>
    
     </>)

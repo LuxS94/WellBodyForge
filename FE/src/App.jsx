@@ -15,6 +15,7 @@ import CustomTarget from './assets/components/dash/CustomTarget';
 import ProtectedRoute from './assets/components/ProtectedRoute';
 import MyMeals from './assets/components/dash/MyMeals';
 import Foods from './assets/components/Foods';
+import Nuser from './assets/components/admin/Nuser';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
       {<Route path="/homeLog" element={<HomeLog/>} />}
       {<Route path="/myMeals" element={<MyMeals/>} />}
       {<Route path="/dashboard" element={<Dashboard/>} />}
+      {<Route path="/nuser" element={<Nuser/>} />}
       </Route>
      </Routes></div>
      </BrowserRouter>
