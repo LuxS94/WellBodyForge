@@ -54,7 +54,8 @@ h3 {
   align-items: center;
   z-index: 9999;
 }
-.mcard:hover {
+.mcard,
+.uf:hover {
   cursor: pointer;
 }
 .mcard {
