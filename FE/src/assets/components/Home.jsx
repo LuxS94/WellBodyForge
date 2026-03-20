@@ -13,9 +13,22 @@ function Home() {
    useEffect(() => {if(localStorage.getItem("logged") === "true"){navigate("/error")}},);
      const [loading, setLoading] = useState(false); 
     const port = import.meta.env.VITE_PORT;
-    const heights = Array.from({ length: 226 }, (_, i) => 50 + i);
+    const heights = Array.from({ length: 226 }, (x, i) => 50 + i);//from creates array from everything; needed in this case 2 params;
      const [form, setForm] = useState({username: '',email: '',password: '',height: '',age: '',weight: '', sex: '',lifestyle: '',plan: ''});
-     const change= (e)=>{setForm({...form,[e.target.name]: e.target.value})};
+    const [passwordError, setPasswordError] = useState(''); //will be filled with error
+    const validatePassword = (password) => {
+  if (!password) return "Password cannot be empty";
+  if (password.length < 8) return "Password must be at least 8 characters";
+  if (!/[A-Z]/.test(password)) return "Password must include at least one uppercase letter";
+  if (!/[0-9]/.test(password)) return "Password must include at least one number";
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return "Password must include at least one special character";
+  return '';} //if valid, doesn't return anything
+     const change= (e)=>{setForm({...form,[e.target.name]: e.target.value});
+     if (e.target.name === 'password') {         
+    const error = validatePassword(e.target.value); //return the error or anything
+    setPasswordError(error); //to fill field with validatePassword's error
+  }
+}
      const submit=(e)=>{e.preventDefault();
         if (loading) return; setLoading(true);
          const url= `http://localhost:${port}/auth/register`;
@@ -43,7 +56,10 @@ function Home() {
          <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Email</h5>
         <Form.Control onChange={change} className="mt-2 "  type="email" placeholder="Enter email"name='email' /></div></Col>
         <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Password</h5>
-        <Form.Control onChange={change} className="mt-2 " type="password" placeholder="*Choose your password" name='password' /></div></Col> <Form.Label className='d-block mt-2 justify-content-center m-1 p-1' style={{color:'grey'}}>*The password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.</Form.Label> </Row>
+        <Form.Control onChange={change} className="mt-2 " type="password" placeholder="*Choose your password" name='password'isInvalid={!!passwordError} /><Form.Control.Feedback type="invalid">
+          {/* isInvalid needs a boolean, and !! converts every value in boolean*/}
+  {passwordError}  
+</Form.Control.Feedback></div></Col> <Form.Label className='d-block mt-2 justify-content-center m-1 p-1' style={{color:'grey'}}>*The password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.</Form.Label> </Row>
       <Row className='justify-content-center mt-5'><Col xs={12} md={3}  ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Height</h5> <Form.Select onChange={change} name='height' defaultValue="" className='mt-2 mb-2'> <option value="">Select your height</option> {heights.map((h) => (<option key={h} value={h}>{h} cm</option>))}
             </Form.Select></div></Col><Col xs={12} md={3}><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Age</h5> <Form.Control onChange={change} name='age' className='mt-2 mb-2' type="number" placeholder="Enter your age"min={1} max={120}step={1}/></div></Col><Col xs={12} md={3}  ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Weight</h5>  <Form.Control onChange={change} name='weight' className='mt-2 mb-2' type="number" placeholder="kg" min={0} step={0.1} /></div></Col></Row>  
              <Row className='justify-content-center mt-5 mb-5'> <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Sex</h5><Form.Select onChange={change} name='sex' className='mt-2 mb-2'> <option value="">Select your gender</option><option value="M">M</option><option value="F">F</option>

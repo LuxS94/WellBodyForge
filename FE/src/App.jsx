@@ -17,6 +17,7 @@ import MyMeals from './assets/components/dash/MyMeals';
 import Foods from './assets/components/Foods';
 import Nuser from './assets/components/admin/Nuser';
 import Nadmin from './assets/components/admin/Nadmin';
+import AdminRoute from './assets/components/admin/AdminRoute';
 
 function App() {
 
@@ -39,9 +40,10 @@ function App() {
       {<Route path="/homeLog" element={<HomeLog/>} />}
       {<Route path="/myMeals" element={<MyMeals/>} />}
       {<Route path="/dashboard" element={<Dashboard/>} />}
+      <Route element={<AdminRoute/>}>
       {<Route path="/nuser" element={<Nuser/>} />}
       {<Route path="/nadmin" element={<Nadmin/>} />}
-      </Route>
+      </Route></Route>
      </Routes></div>
      </BrowserRouter>
     </>

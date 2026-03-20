@@ -6,6 +6,7 @@ import { Spinner } from 'react-bootstrap';
 
 function EditProfile() {
      const navigate = useNavigate();
+     const psw=document.getElementById('psw');
       const [loading, setLoading] = useState(false); 
      const port = import.meta.env.VITE_PORT;
      const heights = Array.from({ length: 226 }, (_, i) => 50 + i);
@@ -19,7 +20,8 @@ function EditProfile() {
   return '';
 };
        const [user, setUser] = useState({username:'',email:'',password:'',height:'',age:'',weight:'',sex:'',lifestyle:'',plan:''});
-     useEffect(() => {const url=`http://localhost:${port}/user/my`
+     useEffect(() => {const url=`http://localhost:${port}/user/my`;
+
         fetch(url, {
   method: 'GET', 
   headers: {
@@ -115,7 +117,7 @@ const change = (e) => {
          <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Email</h5>
         <Form.Control onChange={change} className="mt-2 "  type="email" placeholder="Enter email"name='email' value={user.email}/></div></Col>
         <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Password</h5>
-        <Form.Control onChange={change} className="mt-2 " type="password" placeholder="*Choose your password" name='password' value={user.password}  isInvalid={!!passwordError}/><Form.Control.Feedback type="invalid">
+        <Form.Control id='psw' onChange={change} className="mt-2 " type="password" placeholder="*Choose your password" name='password' value={user.password}  isInvalid={!!passwordError}/><Form.Control.Feedback type="invalid">
   {passwordError}  
 </Form.Control.Feedback></div></Col> <Form.Label className='d-block mt-2 justify-content-center m-1 p-1' style={{color:'grey'}}>*The password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.</Form.Label> </Row>
          {user.role === "USER"?( <>
@@ -127,7 +129,7 @@ const change = (e) => {
   </Form.Select></div></Col>
   <Col xs={12} md={3} ><div className='justify-content-center mr-2'><h5 className='m-0 p-0 fw-light'>Fitness plan</h5><Form.Select onChange={change} name='plan' className='mt-2 mb-2'value={user.plan}> <option value="">Select your plan</option><option value="WEIGHT_LOSS">Weight loss</option><option value="MAINTENANCE">Maintenance</option><option value="BULK">Bulk</option>
   </Form.Select></div></Col><div className='d-block'></div></Row></>):(null)}
-        <Button type='submit'disabled={loading|| !!passwordError||user.password===undefined} className="text-center border-0 mt-5 mb-4" style={{background:'#FC7E00'}}  size="lg">Edit</Button></Form></div></>
+        <Button id='btn' type='submit'disabled={loading|| !!passwordError||psw.value===''} className="text-center border-0 mt-5 mb-4" style={{background:'#FC7E00'}}  size="lg">Edit</Button></Form></div></>
   );
 }
 export default EditProfile

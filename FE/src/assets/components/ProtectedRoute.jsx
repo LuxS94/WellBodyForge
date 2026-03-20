@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-export default function ProtectedRoute() {
+ function ProtectedRoute() {
   const logged = localStorage.getItem("logged");
 
   if (logged === "false" || !logged) {
@@ -9,3 +9,4 @@ export default function ProtectedRoute() {
 
   return <Outlet />;
 }
+export default ProtectedRoute
