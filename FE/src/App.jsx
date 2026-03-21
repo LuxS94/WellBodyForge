@@ -19,7 +19,6 @@ import Nuser from './assets/components/admin/Nuser';
 import Nadmin from './assets/components/admin/Nadmin';
 import AdminRoute from './assets/components/admin/AdminRoute';
 import VUser from './assets/components/admin/VUser';
-import VAdmin from './assets/components/admin/VAdmin';
 
 function App() {
 
@@ -46,7 +45,6 @@ function App() {
       {<Route path="/nuser" element={<Nuser/>} />}
       {<Route path="/nadmin" element={<Nadmin/>} />}
       {<Route path="/vuser" element={<VUser/>}/>}
-      {<Route path="/vadmin" element={<VAdmin/>}/>}
       </Route></Route>
      </Routes></div>
      </BrowserRouter>

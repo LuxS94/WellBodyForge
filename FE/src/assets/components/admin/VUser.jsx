@@ -73,7 +73,7 @@ function VUser (){
 <Row className="d-flex justify-content-center mb-3 mt-5">
     <Form.Control
                 type="text"
-                placeholder="Search food..."
+                placeholder="Search user..."
                 style={{ maxWidth: '300px' }}
                 value={search}
                 onChange={e => {setSearch(e.target.value),gusers()}}
