@@ -56,6 +56,13 @@ function Dashboard () {
         <Card.Subtitle className="mb-2 text-muted">Create new admin</Card.Subtitle>
       </Card.Body>
     </Card></Col>
+    <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
+ <Card className='acard' onClick={() => navigate('/vuser')}>
+      <Card.Body>
+        <Card.Title><i class="bi bi-people me-2 mb-1"></i>All Users</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">Show,update or delete users</Card.Subtitle>
+      </Card.Body>
+    </Card></Col>
     </>):null}
     </Row>
     </div>
