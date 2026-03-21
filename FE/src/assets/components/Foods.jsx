@@ -220,7 +220,7 @@ fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
     </tr>
   </thead>
    <tbody>{filteredFood.map((f,index)=>(
-   <tr key={f.id}> <th>{index+1}</th><td>{f.name}</td><td>{f.type}</td><td>{f.calories}</td><td>{f.protein}</td><td>{f.carbs}</td><td>{f.fat}</td>{user.role==='ADMIN'?(<><td><i onClick={()=>{ handleEditClick(f);}} class="bi bi-pencil-square me-3 uf"></i><i onClick={()=>del(f)} class="bi bi-trash3 uf"></i></td></>):null}</tr>
+   <tr key={f.id}> <th>{index+1}</th><td>{f.name}</td><td>{f.type}</td><td>{f.calories}</td><td>{f.protein}</td><td>{f.carbs}</td><td>{f.fat}</td>{user.role==='ADMIN'?(<><td><i onClick={()=>{ handleEditClick(f);}} class="bi bi-pencil-square me-3 uf"></i><i onClick={()=>del(f.id)} class="bi bi-trash3 uf"></i></td></>):null}</tr>
    ))}</tbody>
   </table>
   {/* food-update form ---------------------------------------------------------------------------------------------------- */}

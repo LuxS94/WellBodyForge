@@ -41,6 +41,19 @@ function VUser (){
       navigate("/error", { state: { message: err.message } });
     })
  }
+ //delete users
+ const duser=(id)=>{
+  fetch(`http://localhost:${port}/user/${id}/delete`,{
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  })
+  .then(async(res)=>{ 
+        if(res.ok){ gusers();}})
+  .catch(err => console.log(err.message)); 
+    }
+ 
   //get users---------------------------------------------------------------------------------------------------------------
   const gusers=()=>{
     fetch(`http://localhost:${port}/user/all`,{
@@ -83,7 +96,7 @@ function VUser (){
     </tr>
   </thead>
    <tbody>{filteredUsers.map((u,index)=>(
-   <tr key={u.id}> <th>{index+1}</th><td>{u.id}</td><td>{u.username}</td><td>{u.email}</td><td>{u.age}</td><td>{u.sex}</td><td>{u.height}</td><td>{u.weight}</td><td>{u.lifestyle}</td><td>{u.plan}</td><td><i onClick={()=>{setShowForm(true);setUpdatedUser(u)}} class="bi bi-pencil-square me-3 uf"></i><i class="bi bi-trash3 uf"></i></td></tr>
+   <tr key={u.id}> <th>{index+1}</th><td>{u.id}</td><td>{u.username}</td><td>{u.email}</td><td>{u.age}</td><td>{u.sex}</td><td>{u.height}</td><td>{u.weight}</td><td>{u.lifestyle}</td><td>{u.plan}</td><td><i onClick={()=>{setShowForm(true);setUpdatedUser(u)}} class="bi bi-pencil-square me-3 uf"></i><i onClick={()=>{duser(u.id)}} class="bi bi-trash3 uf"></i></td></tr>
    ))}</tbody>
   </table>
 {showForm && ( <div  style={{
