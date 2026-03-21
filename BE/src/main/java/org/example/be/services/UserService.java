@@ -1,5 +1,6 @@
 package org.example.be.services;
 
+import org.example.be.dto.UserADTO;
 import org.example.be.dto.UserDTO;
 import org.example.be.entities.User;
 import org.example.be.entities.UserSecurity;
@@ -78,7 +79,7 @@ public class UserService {
         return user;
     }
 
-    public User adUpdate(String id, UserDTO body) {
+    public User adUpdate(String id, UserADTO body) {
         User f = this.ur.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
         if (!body.username().equals(f.getUsername())) {
             if (
@@ -95,7 +96,10 @@ public class UserService {
         }
         ;
         f.setEmail(body.email());
-        f.setPassword(pw.encode(body.password()));
+        if (body.password() != null && !body.password().isEmpty()) {
+            f.setPassword(pw.encode(body.password()));
+        }
+        ;
         f.setHeight(body.height());
         f.setWeight(body.weight());
         f.setAge(body.age());

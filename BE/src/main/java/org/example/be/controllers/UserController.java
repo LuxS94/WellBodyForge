@@ -1,5 +1,6 @@
 package org.example.be.controllers;
 
+import org.example.be.dto.UserADTO;
 import org.example.be.dto.UserDTO;
 import org.example.be.entities.User;
 import org.example.be.entities.UserSecurity;
@@ -68,7 +69,7 @@ public class UserController {
 
     @PutMapping("/{id}/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public User updateProfile(@PathVariable String id, @RequestBody UserDTO body) {
+    public User updateProfile(@PathVariable String id, @RequestBody UserADTO body) {
         return this.us.adUpdate(id, body);
     }//http://localhost:3001/user/{id}/update
 
