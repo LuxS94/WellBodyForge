@@ -15,6 +15,7 @@ function MyNav() {
         <Container  >
          
            <Navbar.Brand style={{padding:'0'}} as={Link} to={username ? '/homeLog' : '/'} ><img style={{height:'50px',padding:'0'}} src='src\assets\components\img\unnamed.jpg'></img></Navbar.Brand>
+{/*mobile version--------------------------------------------------------------------------------------------------  */}
             <Nav.Link id='login' style={{height:'50px'}} className='align-content-center d-flex justify-content-center d-md-none align-items-center' as={Link} to={username ? '/profile' : '/login'}>{username 
             ?( <><i className="bi bi-person-circle me-2 mb-1"></i>{username}<span className='d-inline ms-3' style={{color:'#c41b1b'}}  onClick={(e)=>{ e.stopPropagation();logout()}}>LogOut</span></>)
             : (<><i className="bi bi-person-circle me-3 mb-1"></i>LogIn</>)
@@ -24,7 +25,7 @@ function MyNav() {
       <Nav className="me-auto">
             <Nav.Link className='align-content-center fw-bolder' as={Link} to={username ? '/homeLog' : '/'}>Home</Nav.Link>
              <Nav.Link className='align-content-center fw-bolder'as={Link} to='/learnMore'>More</Nav.Link>
-{/* only if user is logged ----------------------------------------------------------------------------------------------*/}
+{/* desktop version ----------------------------------------------------------------------------------------------*/}
              {username 
             ?( <><Nav.Link className='align-content-center fw-bolder'as={Link} to='/dashboard'>My dashboard</Nav.Link><Nav.Link className='align-content-center fw-bolder'as={Link} to='/foods'>Food</Nav.Link></>):null}
           </Nav>
