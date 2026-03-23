@@ -2,14 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useState } from 'react';
 function MyNav() {
   const user = localStorage.getItem("username");
    const [username, setUsername] = useState(localStorage.getItem("logged")==="true" && user?.trim() ? user : null);
-   const navigate= useNavigate();
-   const logout= ()=>{localStorage.removeItem("token"); localStorage.removeItem("username"); localStorage.setItem("logged", "false"); setUsername(null);navigate("/login")}
+   
+   const logout= ()=>{localStorage.removeItem("token"); localStorage.removeItem("username"); localStorage.setItem("logged", "false"); setUsername(null);window.location.href = "/login";}
     return(<>
  <Navbar expand="md" sticky="top" style={{backgroundColor: '#ffffff',padding:'0',marginTop:'15px'}} data-bs-theme="light">
         <Container  >
