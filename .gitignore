@@ -8,3 +8,4 @@ BE/env.properties
 .idea/vcs.xml
 .idea/WellBodyForge.iml
 env.properties
+FE/.env
