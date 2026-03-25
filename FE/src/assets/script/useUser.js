@@ -15,7 +15,7 @@ export default function useUser() {
   });
 
   useEffect(() => {
-    const url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app//user/my`;
+    const url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/my`;
     fetch(url, {
       method: "GET",
       headers: {
