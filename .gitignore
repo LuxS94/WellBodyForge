@@ -9,3 +9,5 @@ BE/env.properties
 .idea/WellBodyForge.iml
 env.properties
 FE/.env
+FE/.vite/deps_temp_2b3144f2/_metadata.json
+FE/.vite/deps/_metadata.json
