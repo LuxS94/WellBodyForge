@@ -1,9 +1,6 @@
 package org.example.be.entities;
 
 import jakarta.persistence.*;
-import org.example.be.enums.Lifestyle;
-import org.example.be.enums.Plan;
-import org.example.be.enums.Sex;
 
 @Entity
 @Table(name = "Targets")
@@ -29,66 +26,6 @@ public class Target {
 
     }
 
-    @PrePersist  // execute before insert in DB
-//    @PreUpdate   // execute before update DB
-    public void calculate() {
-        if (this.user == null) return;
-        double BMR = 0; //basal metabolic rate
-        double TDEE = 0;//lifestyle factor
-        double FFP = 0;//factor for plan
-        double proteinForKg = 0;
-        double fatForKg = 0;
-
-        if (user.getSex() == Sex.M) {
-            BMR = 10 * user.getWeight() + 6.25 * user.getHeight() - 5 * user.getAge() + 5;
-        } else {
-            BMR = 10 * user.getWeight() + 6.25 * user.getHeight() - 5 * user.getAge() - 161;
-        }
-        ;
-        if (user.getLifestyle() == Lifestyle.SEDENTARY) {
-            TDEE = 1.2;
-        }
-        ;
-        if (user.getLifestyle() == Lifestyle.MODERATELY_ACTIVE) {
-            TDEE = 1.55;
-        }
-        ;
-        if (user.getLifestyle() == Lifestyle.ATHLETIC) {
-            TDEE = 1.75;
-        }
-        ;
-        if (user.getPlan() == Plan.WEIGHT_LOSS) {
-            FFP = 0.82;
-        }
-        ;
-        if (user.getPlan() == Plan.MAINTENANCE) {
-            FFP = 1.0;
-        }
-        ;
-        if (user.getPlan() == Plan.BULK) {
-            FFP = 1.15;
-        }
-        ;
-        if (user.getPlan() == Plan.WEIGHT_LOSS) {
-            proteinForKg = 2.2;
-            fatForKg = 1.0;
-        }
-        ;
-        if (user.getPlan() == Plan.MAINTENANCE) {
-            proteinForKg = 2.0;
-            fatForKg = 0.9;
-        }
-        ;
-        if (user.getPlan() == Plan.BULK) {
-            proteinForKg = 1.8;
-            fatForKg = 1.0;
-        }
-
-        this.kcal = Math.round(((BMR * TDEE) * FFP) * 100.0) / 100.0;
-        this.protein = Math.round((proteinForKg * user.getWeight()) * 100.0) / 100.0;
-        this.fat = Math.round((fatForKg * user.getWeight()) * 100.0) / 100.0;
-        this.carbs = Math.round(((this.kcal - (this.protein * 4 + this.fat * 9)) / 4) * 100.0) / 100.0;
-    }
 
     public String getId() {
         return id;
@@ -100,7 +37,6 @@ public class Target {
 
     public void setUser(User user) {
         this.user = user;
-        calculate();
     }
 
     public double getKcal() {

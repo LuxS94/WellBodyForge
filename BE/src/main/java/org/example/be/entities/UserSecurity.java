@@ -14,12 +14,14 @@ public class UserSecurity implements UserDetails {
 
     private String id;
     private String username;
+    private String email;
     private String password;
     private Role role;
 
-    public UserSecurity(String id, String username, String password, Role role) {
+    public UserSecurity(String id, String username, String email, String password, Role role) {
         this.id = id;
         this.username = username;
+        this.email = email;
         this.password = password;
         this.role = role;
     }
@@ -31,6 +33,14 @@ public class UserSecurity implements UserDetails {
 
     public String getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     @Override

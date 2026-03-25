@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class MyMealService {
     private final MyMealRepo mmr;
@@ -33,18 +35,20 @@ public class MyMealService {
     }
 
     //only by my profile
-    public Page<MyMeal> findAllMyMeals(UserSecurity user, int page, int size, String orderBy, String sortCriteria) {
-        if (size > 100 || size < 0) size = 10;
+    public Page<MyMeal> findAllMyMeals(UserSecurity user, int page, int size, String orderBy, String sortCriteria, String date) {
         if (page < 0) page = 0;
         Pageable pageable = PageRequest.of(page, size,
                 sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
+        if (date != null && !date.isEmpty()) {
+            LocalDate localDate = LocalDate.parse(date); // converts string YYYY-MM-DD in LocalDate
+            return this.mmr.findByDateAndUserId(localDate, user.getId(), pageable);
+        }
         return this.mmr.findByUserId(user.getId(), pageable);
     }
-    
+
 
     //admin
     public Page<MyMeal> findAllMeals(int page, int size, String orderBy, String sortCriteria) {
-        if (size > 100 || size < 0) size = 10;
         if (page < 0) page = 0;
         Pageable pageable = PageRequest.of(page, size,
                 sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));

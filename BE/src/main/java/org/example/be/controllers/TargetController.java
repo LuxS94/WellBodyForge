@@ -30,7 +30,7 @@ public class TargetController {
 
     @GetMapping("/showAll")
     @PreAuthorize("hasRole('ADMIN')")
-    public Page<Target> showAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "kcal") String orderBy, @RequestParam(defaultValue = "asc") String sortCriteria) {
+    public Page<Target> showAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "1000") int size, @RequestParam(defaultValue = "kcal") String orderBy, @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.ts.findAll(page, size, orderBy, sortCriteria);
     }//http://localhost:3001/target/showAll
 

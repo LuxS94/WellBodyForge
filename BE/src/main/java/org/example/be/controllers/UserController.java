@@ -1,5 +1,6 @@
 package org.example.be.controllers;
 
+import org.example.be.dto.UserADTO;
 import org.example.be.dto.UserDTO;
 import org.example.be.entities.User;
 import org.example.be.entities.UserSecurity;
@@ -27,6 +28,11 @@ public class UserController {
         this.pw = pw;
     }
 
+    @GetMapping("/my")
+    public UserSecurity getProf(@AuthenticationPrincipal UserSecurity currentUser) {
+        return this.us.getProfile(currentUser);
+    }//http://localhost:3001/user/my
+
     @GetMapping("/myProfile")
     public User showMyProfile(@AuthenticationPrincipal UserSecurity currentUser) {
         return this.us.findById(currentUser.getId());
@@ -35,7 +41,7 @@ public class UserController {
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public Page<User> showsAllUsers(@RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(defaultValue = "1000") int size,
                                     @RequestParam(defaultValue = "username") String orderBy,
                                     @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.us.findAllUsers(page, size, orderBy, sortCriteria);
@@ -63,7 +69,7 @@ public class UserController {
 
     @PutMapping("/{id}/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public User updateProfile(@PathVariable String id, @RequestBody UserDTO body) {
+    public User updateProfile(@PathVariable String id, @RequestBody UserADTO body) {
         return this.us.adUpdate(id, body);
     }//http://localhost:3001/user/{id}/update
 

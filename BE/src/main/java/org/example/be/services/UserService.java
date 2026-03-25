@@ -1,7 +1,7 @@
 package org.example.be.services;
 
+import org.example.be.dto.UserADTO;
 import org.example.be.dto.UserDTO;
-import org.example.be.entities.Target;
 import org.example.be.entities.User;
 import org.example.be.entities.UserSecurity;
 import org.example.be.exceptions.AlreadyExists;
@@ -20,13 +20,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     private final UserRepo ur;
+    private final TargetService ts;
     private final TargetRepo tr;
     private final AdminRepo ar;
     private final PasswordEncoder pw;
 
     @Autowired
-    public UserService(UserRepo ur, TargetRepo tr, AdminRepo ar, PasswordEncoder pw) {
+    public UserService(UserRepo ur, TargetService ts, TargetRepo tr, AdminRepo ar, PasswordEncoder pw) {
         this.ur = ur;
+        this.ts = ts;
         this.tr = tr;
         this.ar = ar;
         this.pw = pw;
@@ -42,8 +44,7 @@ public class UserService {
         }
         User nUser = new User(body.username(), body.email(), pw.encode(body.password()), body.height(), body.weight(), body.age(), body.sex(), body.lifestyle(), body.plan());
         this.ur.save(nUser);
-        Target nTarget = new Target(nUser);
-        this.tr.save(nTarget);
+        this.ts.calculate(nUser);
         return nUser;
     }
 
@@ -73,12 +74,12 @@ public class UserService {
         user.setLifestyle(body.lifestyle());
         user.setPlan(body.plan());
         this.ur.save(user);
-        Target t = this.tr.findByUser(user).get();
-        this.tr.save(t);
+
+        this.ts.calculate(user);
         return user;
     }
 
-    public User adUpdate(String id, UserDTO body) {
+    public User adUpdate(String id, UserADTO body) {
         User f = this.ur.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
         if (!body.username().equals(f.getUsername())) {
             if (
@@ -95,7 +96,10 @@ public class UserService {
         }
         ;
         f.setEmail(body.email());
-        f.setPassword(pw.encode(body.password()));
+        if (body.password() != null && !body.password().isEmpty()) {
+            f.setPassword(pw.encode(body.password()));
+        }
+        ;
         f.setHeight(body.height());
         f.setWeight(body.weight());
         f.setAge(body.age());
@@ -103,8 +107,7 @@ public class UserService {
         f.setLifestyle(body.lifestyle());
         f.setPlan(body.plan());
         this.ur.save(f);
-        Target t = this.tr.findByUser(f).get();
-        this.tr.save(t);
+        this.ts.calculate(f);
         return f;
     }
 
@@ -113,7 +116,6 @@ public class UserService {
     }
 
     public Page<User> findAllUsers(int page, int size, String orderBy, String sortCriteria) {
-        if (size > 100 || size < 0) size = 10;
         if (page < 0) page = 0;
         Pageable pageable = PageRequest.of(page, size,
                 sortCriteria.equals("desc") ? Sort.by(orderBy).descending() : Sort.by(orderBy));
@@ -128,5 +130,9 @@ public class UserService {
     public void adDelete(String id) {
         User f = this.ur.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
         this.ur.delete(f);
+    }
+
+    public UserSecurity getProfile(UserSecurity u) {
+        return u;
     }
 }

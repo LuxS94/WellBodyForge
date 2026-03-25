@@ -28,7 +28,7 @@ public class AdminController {
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public Page<Admin> findALl(@RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size,
+                               @RequestParam(defaultValue = "1000") int size,
                                @RequestParam(defaultValue = "username") String orderBy,
                                @RequestParam(defaultValue = "asc") String sortCriteria) {
         return this.as.findALl(page, size, orderBy, sortCriteria);
