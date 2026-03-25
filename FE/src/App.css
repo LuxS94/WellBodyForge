@@ -4,7 +4,7 @@ body,
   height: 100%;
 }
 body {
-  background-image: url("./public/unnamed.jpg");
+  background-image: url("/unnamed.jpg");
   background-size: cover;
 }
 .welcome {
