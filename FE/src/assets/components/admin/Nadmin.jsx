@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 function Nadmin(){
     const navigate = useNavigate();
-    const port = import.meta.env.VITE_PORT;
     const [loading, setLoading] = useState(false); 
     const [form, setForm] = useState({username: '',email: '',password: ''});
        const [passwordError, setPasswordError] = useState(''); //will be filled with error
@@ -25,7 +24,7 @@ function Nadmin(){
   }};
     const submit=(e)=>{e.preventDefault();
         if (loading) return; setLoading(true);
-         const url= `http://localhost:${port}/admin`;
+         const url= `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/admin`;
           fetch(url,{
     method:'POST',
     headers:{'Content-Type':'application/json',

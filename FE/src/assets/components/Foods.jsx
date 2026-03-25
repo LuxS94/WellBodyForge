@@ -14,7 +14,6 @@ function Foods (){
      const[showUpForm,setShowUpForm]=useState(false);
      const[updateFood,setUpdateFood]=useState([])
      const [newFood, setNewFood] = useState({ name: '', type: '', kcal: '', protein: '', carbs: '', fat: '' });
-    const port=import.meta.env.VITE_PORT;
        const filteredFood = food.filter(f =>           //filter for searchbar
     f.name.toLowerCase().includes(search.toLowerCase())
   );  
@@ -32,7 +31,7 @@ function Foods (){
 }
   // add food-----------------------------------------------------------------------------------------------------------
     const handleAddFood = () => {
-      fetch(`http://localhost:${port}/food/f/add`,{
+      fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/food/f/add`,{
  method:'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,7 +45,7 @@ function Foods (){
     // update food----------------------------------------------------------------------------------------------------------
  
     const handleUpdateFood=(id)=>{
-    fetch(`http://localhost:${port}/food/${id}`, {
+    fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/food/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -72,7 +71,7 @@ function Foods (){
 
   // get all foods------------------------------------------------------------------------------------------------------
   const gfood=()=>{
-fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
+fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/food/f/all?page=0&size=1000`, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
@@ -82,7 +81,7 @@ fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
     .catch(err => console.log(err));}
     // delete food----------------------------------------------------------------------------------------------------
     const del=(id)=>{
-      fetch(`http://localhost:${port}/food/${id}`,{
+      fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/food/${id}`,{
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`

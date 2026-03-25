@@ -7,7 +7,6 @@ import { Spinner } from 'react-bootstrap';
 function EditProfile() {
      const navigate = useNavigate();
       const [loading, setLoading] = useState(false); 
-     const port = import.meta.env.VITE_PORT;
      const heights = Array.from({ length: 226 }, (_, i) => 50 + i);
      const [passwordError, setPasswordError] = useState('');
      const validatePassword = (password) => {
@@ -19,7 +18,7 @@ function EditProfile() {
   return '';
 };
        const [user, setUser] = useState({username:'',email:'',password:'',height:'',age:'',weight:'',sex:'',lifestyle:'',plan:''});
-     useEffect(() => {const url=`http://localhost:${port}/user/my`;
+     useEffect(() => {const url=`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/my`;
 
         fetch(url, {
   method: 'GET', 
@@ -32,7 +31,7 @@ function EditProfile() {
           .then(data => {
             if (data.role === "USER") {
                 
-              fetch(`http://localhost:${port}/user/myProfile`, {
+              fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/myProfile`, {
   method: 'GET', 
   headers: {
     'Content-Type': 'application/json',
@@ -63,7 +62,7 @@ const change = (e) => {
   let body;
 
   if (user.role === "USER") {
-    url = `http://localhost:${port}/user/updateMe`;
+    url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/updateMe`;
     body = {
       username: user.username,
       email: user.email,
@@ -76,7 +75,7 @@ const change = (e) => {
       plan: user.plan
     };
   } else if (user.role === "ADMIN") {
-    url = `http://localhost:${port}/admin`;
+    url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/admin`;
     body = {
       username: user.username,
       email: user.email,

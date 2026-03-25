@@ -8,7 +8,6 @@ import Spinner from 'react-bootstrap/Spinner';
 function Nuser(){
     const navigate = useNavigate();
      const [loading, setLoading] = useState(false); 
-    const port = import.meta.env.VITE_PORT;
     const heights = Array.from({ length: 226 }, (_, i) => 50 + i);
      const [form, setForm] = useState({username: '',email: '',password: '',height: '',age: '',weight: '', sex: '',lifestyle: '',plan: ''});
        const [passwordError, setPasswordError] = useState(''); //will be filled with error
@@ -26,7 +25,7 @@ function Nuser(){
   }};
      const submit=(e)=>{e.preventDefault();
         if (loading) return; setLoading(true);
-         const url= `http://localhost:${port}/user`;
+         const url= `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user`;
           fetch(url,{
     method:'POST',
     headers:{'Content-Type':'application/json',

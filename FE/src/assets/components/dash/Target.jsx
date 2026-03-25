@@ -6,8 +6,7 @@ import { Button } from "react-bootstrap";
 function Target() {
    
     const navigate = useNavigate();
-    const port = import.meta.env.VITE_PORT;
-    const url = `http://localhost:${port}/target/myTarget`;
+    const url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/target/myTarget`;
     const[target,setTarget]=useState({kcal:'',carbs:'',protein:'',fat:''})
  useEffect(() => {
 fetch(url, {

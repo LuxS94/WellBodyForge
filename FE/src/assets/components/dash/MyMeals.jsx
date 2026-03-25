@@ -10,7 +10,6 @@ function MyMeals() {
  const [meals,setMeals]=useState([]);  //for meals
  const [dates, setDates] = useState(new Date()); //for date
  const[adMeal,setAdmeal]=useState({description:'',date:dates.toISOString().split("T")[0]}) //add meals
-  const port=import.meta.env.VITE_PORT;
  const [showForm, setShowForm] = useState(false);//form to add meal
  const[showAddFoodForm,setShowAddFoodForm]=useState(null);//form to add food
  const[mealFood,setMealFood]=useState({id:null,grams:'',foodName:'',foodId:null})//for food
@@ -41,7 +40,7 @@ const Prev = () => {
   };
   //get meals-----------------------------------------------------------------------------------------------------------
      const fmeal=()=>{
-fetch(`http://localhost:${port}/meals/my?date=${dates.toLocaleDateString("en-CA")}`, {
+fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/meals/my?date=${dates.toLocaleDateString("en-CA")}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +58,7 @@ fetch(`http://localhost:${port}/meals/my?date=${dates.toLocaleDateString("en-CA"
     description: adMeal.description,
     date: dates.toISOString().split("T")[0] 
   };
-    fetch(`http://localhost:${port}/meals`,{
+    fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/meals`,{
       method:'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +74,7 @@ fetch(`http://localhost:${port}/meals/my?date=${dates.toLocaleDateString("en-CA"
     }
     //remove meal-------------------------------------------------------------------------------------------------------
     const remove=(id)=>{
-      fetch(`http://localhost:${port}/meals/delete/${id}` ,{
+      fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/meals/delete/${id}` ,{
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -94,7 +93,7 @@ const fetchFoodSuggestions = (query) => {
     setFoodSuggestions([]);
     return;
   }
-  fetch(`http://localhost:${port}/food/f/all?page=0&size=1000`, {
+  fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/food/f/all?page=0&size=1000`, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
@@ -121,7 +120,7 @@ const addMealFood = (e, mealId) => {
     foodId: mealFood.foodId?.toString(),
     grams: parseFloat(mealFood.grams)
   };
-  fetch(`http://localhost:${port}/mealFood/create`, {
+  fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/mealFood/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -143,7 +142,7 @@ const addMealFood = (e, mealId) => {
 };
 //remove mealFood--------------------------------------------------------------------------------------------
 const removeMealFood = (mealFoodId) => {
-  fetch(`http://localhost:${port}/mealFood/my/${mealFoodId}`, {
+  fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/mealFood/my/${mealFoodId}`, {
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -165,7 +164,7 @@ const removeMealFood = (mealFoodId) => {
 };
 //fetch to get target---------------------------------------------------------------------------------------
 const targ=()=>{
-  fetch(`http://localhost:${port}/target/myTarget`, {
+  fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/target/myTarget`, {
   method: "GET",
   headers: {
     "Content-Type": "application/json",

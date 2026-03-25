@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import {Button} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 function VUser (){
-     const port=import.meta.env.VITE_PORT;
      const navigate=useNavigate();
     const heights = Array.from({ length: 226 }, (x, i) => 50 + i);
   // to get and search users---------------------------------------------------------------------------------------------
@@ -18,7 +17,7 @@ function VUser (){
  const [updatedUser,setUpdatedUser]=useState([])
   const [showForm, setShowForm] = useState(false);
  const upUser=(id)=>{
-  fetch(`http://localhost:${port}/user/${id}/update`,{
+  fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/${id}/update`,{
      method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -43,7 +42,7 @@ function VUser (){
  }
  //delete users
  const duser=(id)=>{
-  fetch(`http://localhost:${port}/user/${id}/delete`,{
+  fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/${id}/delete`,{
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -56,7 +55,7 @@ function VUser (){
  
   //get users---------------------------------------------------------------------------------------------------------------
   const gusers=()=>{
-    fetch(`http://localhost:${port}/user/all`,{
+    fetch(`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/all`,{
          headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     }})

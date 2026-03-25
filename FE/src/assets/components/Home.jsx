@@ -12,7 +12,6 @@ function Home() {
   const navigate = useNavigate();
    useEffect(() => {if(localStorage.getItem("logged") === "true"){navigate("/error")}},);
      const [loading, setLoading] = useState(false); 
-    const port = import.meta.env.VITE_PORT;
     const heights = Array.from({ length: 226 }, (x, i) => 50 + i);//from creates array from everything; needed in this case 2 params;
      const [form, setForm] = useState({username: '',email: '',password: '',height: '',age: '',weight: '', sex: '',lifestyle: '',plan: ''});
     const [passwordError, setPasswordError] = useState(''); //will be filled with error
@@ -31,7 +30,7 @@ function Home() {
 }
      const submit=(e)=>{e.preventDefault();
         if (loading) return; setLoading(true);
-         const url= `http://localhost:${port}/auth/register`;
+         const url= `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/auth/register`;
           fetch(url,{
     method:'POST',
     headers:{'Content-Type':'application/json'},

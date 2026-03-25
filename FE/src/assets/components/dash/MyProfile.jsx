@@ -6,12 +6,11 @@ import useUser from "../../script/useUser";
 
 
 function MyProfile() {
-  const port = import.meta.env.VITE_PORT;
   const navigate = useNavigate();
   const user = useUser();
   const deleteP=()=>{
     let url;
-    if(user.role==="USER"){url=`http://localhost:${port}/user/deleteMe`}else{url=`http://localhost:${port}/admin`}
+    if(user.role==="USER"){url=`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/deleteMe`}else{url=`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/admin`}
     fetch(url, {
       method: 'DELETE',
       headers: {

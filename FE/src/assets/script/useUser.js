@@ -13,9 +13,9 @@ export default function useUser() {
     plan: "",
     role: "",
   });
-  const port = import.meta.env.VITE_PORT;
+
   useEffect(() => {
-    const url = `http://localhost:${port}/user/my`;
+    const url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app//user/my`;
     fetch(url, {
       method: "GET",
       headers: {
@@ -33,13 +33,16 @@ export default function useUser() {
       })
       .then((data) => {
         if (data.role === "USER") {
-          fetch(`http://localhost:${port}/user/myProfile`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+          fetch(
+            `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/user/myProfile`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
             },
-          })
+          )
             .then(async (res) => {
               const data = await res.json();
               if (res.ok) {

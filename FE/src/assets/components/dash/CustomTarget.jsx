@@ -5,8 +5,7 @@ import { useState } from 'react';
 
 function CustomTarget() {
      const navigate = useNavigate();
-    const port = import.meta.env.VITE_PORT;
-    const url = `http://localhost:${port}/target/myTarget`;
+    const url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/target/myTarget`;
     const[target,setTarget]=useState({kcal:'',carbs:'',protein:'',fat:''})
  useEffect(() => {
 fetch(url, {
@@ -39,7 +38,7 @@ fetch(url, {
 
   const submit = (e) => {
    e.preventDefault();
-   const url = `http://localhost:${port}/target/updateMyTarget`;
+   const url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/target/updateMyTarget`;
    fetch(url, {
      method: "PUT",
      headers: {
@@ -55,7 +54,7 @@ fetch(url, {
     .catch((err) => {console.log(err.message); navigate("/error", { state: { message: err.message } });});}
 
     const reset = () => {
-        const url = `http://localhost:${port}/target/turnDefault`;
+        const url = `https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/target/turnDefault`;
         fetch(url, {
           method: "PUT",
           headers: {

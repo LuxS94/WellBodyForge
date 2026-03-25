@@ -13,9 +13,8 @@ function Login() {
      const [loading, setLoading] = useState(false); 
     const [form,setForm]=useState ({username:'',password:''});
     const change=(e)=>{setForm({...form,[e.target.name]: e.target.value})};
-    const port = import.meta.env.VITE_PORT;
     const submit=(e)=>{e.preventDefault();
-const url=`http://localhost:${port}/auth/login`;
+const url=`https://beautiful-rubie-luxs94-fb56ef61.koyeb.app/auth/login`;
  if (loading) return; setLoading(true);
 fetch(url,{
     method:'POST',
