@@ -23,11 +23,11 @@ function MyNav() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
            <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">
-            <Nav.Link className='align-content-center fw-bolder' as={Link} to={username ? '/homeLog' : '/'}>Home</Nav.Link>
-             <Nav.Link className='align-content-center fw-bolder'as={Link} to='/learnMore'>More</Nav.Link>
+            <Nav.Link className='align-content-center fw-bolder' style={{color: '#fc7e00'}} as={Link} to={username ? '/homeLog' : '/'}>Home</Nav.Link>
+             <Nav.Link className='align-content-center fw-bolder'  style={{color: '#fc7e00'}} as={Link} to='/learnMore'>More</Nav.Link>
 {/* desktop version ----------------------------------------------------------------------------------------------*/}
              {username 
-            ?( <><Nav.Link className='align-content-center fw-bolder'as={Link} to='/dashboard'>My dashboard</Nav.Link><Nav.Link className='align-content-center fw-bolder'as={Link} to='/foods'>Food</Nav.Link></>):null}
+            ?( <><Nav.Link className='align-content-center fw-bolder'as={Link}  style={{color: '#fc7e00'}} to='/dashboard'>My dashboard</Nav.Link><Nav.Link className='align-content-center fw-bolder'as={Link}  style={{color: '#fc7e00'}} to='/foods'>Food</Nav.Link></>):null}
           </Nav>
           <Nav>
           <Nav.Link id='login' style={{height:'50px'}} className='align-content-center d-none d-md-flex justify-content-center align-items-center' as={Link} to={username ? '/profile' : '/login'}>{username 

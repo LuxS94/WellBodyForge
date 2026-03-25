@@ -9,7 +9,7 @@ function Dashboard () {
     const username= localStorage.getItem("username");
     return(<><h1 className='welcome' >Hello {username}!</h1>
     <div style={{backgroundColor:'white',textAlign:'left'}} className='mt-5 welcome2 rounded-3 pt-1 pb-1' >
-        <h2 style={{textDecoration:'bolder',margin:'30px'}}>{username}'s dashboard:</h2>
+        <h2 style={{textDecoration:'bolder',margin:'30px',color:' #fc7e00',textShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)'}}>{username}'s dashboard:</h2>
         <Row className='d-flex justify-content-center '>
             <Col xs={12} sm={6} lg={3} className='d-flex justify-content-center'>
  <Card className={user.role==="USER"? 'mcard':'acard' }onClick={() => navigate('/profile')}>

@@ -25,7 +25,7 @@ fetch(url,{
   .then( async res=>{ const data = await res.json();if(res.ok){return data} else {throw new Error (data.message || data.error||"Error in response")}})
   .then(data=>{localStorage.setItem('token', data.token); localStorage.setItem("username", form.username);
   localStorage.setItem("logged", "true");window.location.href = "/dashboard"})
-  .catch(err=>{console.log(err.message);navigate("/error", { state: { message: err.message } })
+  .catch(err=>{console.log(err.message);navigate("/error", { state: { message: "Username or password wrong!" } })
   .finally (()=> {setLoading(false)})
 })
     };
@@ -34,7 +34,7 @@ fetch(url,{
       <div className="loading-overlay">
         <Spinner animation="border" variant="warning" />
       </div>)} 
-    <h1 className='welcome' style={{color:"white", textAlign:"center"}}>Nice to see you again!</h1>
+    <h1 className='welcome' >Nice to see you again!</h1>
     <div style={{backgroundColor:'white', maxWidth:'640px'}} className='mt-5 rounded-3 welcome2 mx-auto'>
         <h2 style={{color:'#FC7E00', paddingTop:"50px"}}>Log in to continue</h2>
         <Form onSubmit={submit}  className='container mt-1 '>
