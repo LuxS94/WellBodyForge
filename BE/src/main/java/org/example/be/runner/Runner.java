@@ -25,11 +25,11 @@ public class Runner implements CommandLineRunner {
     private AdminRepo ar;
     @Autowired
     private PasswordEncoder pw;
-    @Value("${admin.username}")
+    @Value("${admin_username}")
     private String adminUsername;
-    @Value("${admin.password}")
+    @Value("${admin_password}")
     private String adminPassword;
-    @Value("${admin.email}")
+    @Value("${admin_email}")
     private String adminEmail;
 
     @Override
